@@ -3,11 +3,13 @@
  */
 
 const SLIDES = [
-    "slide01.html", "slide01B.html", "slide01C.html", "slide01D.html", "slide01E.html",
+    "slide01.html", "slide_new.html", "slide_new2.html", "slide_new3.html", "slide_new4.html",
     "slide03.html", "slide04.html",
     "slide05.html", "slide06.html", "slide07.html", "slide08.html",
     "slide09.html", "slide010.html", "slide011.html", "slide012.html",
-    "slide013.html", "slide014.html",
+    "slide013.html",
+    "slide_new5.html", "slide_new6.html", "slide_new7.html",
+    "slide014.html",
     "slide02.html", "slide_final.html"
 ];
 

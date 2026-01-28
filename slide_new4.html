@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Rendimiento por Prenda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background: #050505;
+            position: relative;
+            padding: 30px 45px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* FONDO */
+        .spotlight {
+            position: absolute;
+            width: 150%;
+            height: 60%;
+            filter: blur(80px);
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .spot-1 {
+            top: -20%;
+            left: -20%;
+            background: linear-gradient(135deg, transparent, #ffffff, transparent);
+        }
+
+        .spot-2 {
+            bottom: -20%;
+            right: -20%;
+            background: linear-gradient(135deg, transparent, #FF5000, transparent);
+        }
+
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #333 0%, #FF5000 50%, #333 100%);
+            z-index: 10;
+        }
+
+        /* HEADER */
+        .header {
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0;
+            text-transform: uppercase;
+            color: #fff;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #9ca3af;
+            margin: 4px 0 0 0;
+            font-weight: 500;
+        }
+
+        /* CONTENT GRID */
+        .content-grid {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .panel {
+            flex: 1;
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .panel-left {
+            flex: 4;
+        }
+
+        .panel-right {
+            flex: 7;
+        }
+
+        .panel-header {
+            padding: 12px 20px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.03), transparent);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        .chart-container {
+            flex: 1;
+            width: 100%;
+            min-height: 0;
+            padding: 15px;
+        }
+
+        .echart-div {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* LEYENDA DONUT MEJORADA */
+        .donut-legend-table {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 80px;
+            justify-content: center;
+        }
+
+        .legend-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #aaa;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 5px;
+        }
+
+        .legend-section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .ls-title {
+            font-weight: 800;
+            color: #fff;
+            width: 30%;
+        }
+
+        .ls-items {
+            display: flex;
+            gap: 15px;
+            width: 70%;
+            justify-content: flex-end;
+        }
+
+        .dl-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            color: #ccc;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .box {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+
+        /* Colores Específicos */
+        .c-colg {
+            background: #FF5000;
+        }
+
+        .c-paq {
+            background: #9ca3af;
+        }
+
+        .c-zap {
+            background: #e5e7eb;
+        }
+
+        .c-colg-b {
+            background: #2a2f36;
+        }
+
+        .c-paq-b {
+            background: #343a42;
+        }
+
+        .c-zap-b {
+            background: #3f4650;
+        }
+
+        .c-bf {
+            background: #4b5563;
+        }
+
+        .c-ene {
+            border: 1px solid #fff;
+        }
+
+        /* LEYENDA BARRAS */
+        .bar-legend {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .bl-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            font-size: 9px;
+            color: #aaa;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .bl-color {
+            width: 20px;
+            height: 6px;
+            border-radius: 2px;
+        }
+
+        /* FOOTER DATOS */
+        .insight-footer {
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+            min-height: 90px;
+        }
+
+        .i-row {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .i-text {
+            font-size: 12px;
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+
+        .c-icon {
+            font-size: 16px;
+            margin-top: 3px;
+        }
+
+        .c-green {
+            color: #34d399;
+        }
+
+        .c-red {
+            color: #f43f5e;
+        }
+
+        .c-orange {
+            color: #FF5000;
+        }
+
+        /* Paleta Naranja GXO */
+        .bg-o1 {
+            background: #fbbf24;
+        }
+
+        .bg-o2 {
+            background: #f97316;
+        }
+
+        .bg-o3 {
+            background: #FF5000;
+        }
+
+        .bg-gray {
+            background: #4b5563;
+        }
+
+        .legend-section-b {
+            display: grid;
+            row-gap: 8px;
+        }
+
+        .legend-row {
+            display: grid;
+            grid-template-columns: 120px auto;
+            align-items: center;
+        }
+
+        .ls-items {
+            display: flex;
+            gap: 12px;
+        }
+
+        .dl-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .box {
+            width: 12px;
+            height: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="spotlight spot-1"></div>
+        <div class="spotlight spot-2"></div>
+        <div class="top-accent"></div>
+
+        <div class="header">
+            <div>
+                <h1>Rendimiento según Tipología</h1>
+                <p>Comparativa: Volumen y Productividad (Enero Actual vs Black Friday)</p>
+            </div>
+        </div>
+
+        <div class="content-grid">
+
+            <!-- IZQUIERDA: VOLUMEN -->
+            <div class="panel panel-left">
+                <div class="panel-header">
+                    <div class="panel-title"><i class="fas fa-chart-pie" style="color:#d1d5db"></i> Volumen Total</div>
+                    <div class="badge">Mix de Prendas</div>
+                </div>
+                <div class="chart-container">
+                    <div id="donutChart" class="echart-div"></div>
+                </div>
+                <!-- Leyenda Estructurada -->
+                <div class="donut-legend-table">
+                    <div class="legend-section">
+                        <span class="ls-title">Anillos</span>
+                        <div class="ls-items">
+                            <div class="dl-item">
+                                <div class="box c-bf"></div> Interior (Black friday)
+                            </div>
+                            <div class="dl-item">
+                                <div class="box" style="border:1px solid #fff"></div> Exterior (Enero)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="legend-section-b">
+                        <div class="legend-row">
+                            <span class="ls-title">Enero</span>
+                            <div class="ls-items">
+                                <div class="dl-item">
+                                    <div class="box c-colg"></div> Col
+                                </div>
+                                <div class="dl-item">
+                                    <div class="box c-paq"></div> Paq.
+                                </div>
+                                <div class="dl-item">
+                                    <div class="box c-zap"></div> Zap.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="legend-row">
+                            <span class="ls-title">Black</span>
+                            <div class="ls-items">
+                                <div class="dl-item">
+                                    <div class="box c-colg-b"></div> Col
+                                </div>
+                                <div class="dl-item">
+                                    <div class="box c-paq-b"></div> Paq.
+                                </div>
+                                <div class="dl-item">
+                                    <div class="box c-zap-b"></div> Zap.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- DERECHA: PRODUCTIVIDAD -->
+            <div class="panel panel-right">
+                <div class="panel-header">
+                    <div class="panel-title"><i class="fas fa-tachometer-alt" style="color:#FF5000"></i> Prod. por
+                        Departamento</div>
+                    <div class="bar-legend">
+                        <span>BLACK</span>
+                        <div class="bl-item">
+                            <div class="bl-color bg-gray"></div><span>BF (Ref)</span>
+                        </div>
+                        <span>ENERO</span>
+                        <div class="bl-item">
+                            <div class="bl-color bg-o1"></div><span>Pick</span>
+                        </div>
+                        <div class="bl-item">
+                            <div class="bl-color bg-o2"></div><span>RBS</span>
+                        </div>
+                        <div class="bl-item">
+                            <div class="bl-color bg-o3"></div><span>Auto</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div id="barChart" class="echart-div"></div>
+                </div>
+
+                <div class="insight-footer">
+                    <div class="i-row">
+                        <i class="fas fa-robot c-icon c-orange"></i>
+                        <span class="i-text"><strong>Automatización Líder:</strong> El sistema de Pick Auto (AGV)
+                            consolida su eficiencia superando las <strong>120 u/h</strong> en Colgado y Paquetería, con
+                            una mejora del 10% sobre la campaña.</span>
+                    </div>
+                    <div class="i-row">
+                        <i class="fas fa-chart-line c-icon c-green"></i>
+                        <span class="i-text"><strong>Optimización Sorter:</strong> RBS logra un incremento crítico del
+                            <strong>+14%</strong> en Zapato (88.8 u/h) y +15% en Paquetería, compensando la bajada de
+                            volumen con mayor velocidad.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const cDonut = echarts.init(document.getElementById('donutChart'));
+            const cBar = echarts.init(document.getElementById('barChart'));
+
+            const colorBF = '#4b5563';
+            const cColg = '#FF5000'; const cPaq = '#9ca3af'; const cZap = '#e5e7eb';
+
+            // Tonos Naranja para Enero
+            const o1 = '#fbbf24'; // Picking
+            const o2 = '#f97316'; // RBS
+            const o3 = '#FF5000'; // Auto
+
+            // --- DONUT ANIDADO ---
+            const donutOption = {
+                tooltip: { trigger: 'item', backgroundColor: 'rgba(20,20,20,0.9)', textStyle: { color: '#fff' }, formatter: '{b}: {c} ({d}%)' },
+                series: [
+                    // Interior: BF (Solo números)
+                    {
+                        name: 'BF', type: 'pie', radius: [0, '30%'], itemStyle: { borderColor: '#18181b', borderWidth: 2 },
+                        label: { position: 'inner', fontSize: 10, color: '#ccc', formatter: '{c}' },
+                        data: [
+                            { value: 2000000, name: 'Colgado BF', itemStyle: { color: colorBF, opacity: 0.8 } },
+                            { value: 2000000, name: 'Paq BF', itemStyle: { color: colorBF, opacity: 0.6 } },
+                            { value: 727000, name: 'Zap BF', itemStyle: { color: colorBF, opacity: 0.4 } }
+                        ]
+                    },
+                    // Exterior: Enero (Solo números)
+                    {
+                        name: 'Enero', type: 'pie', radius: ['40%', '60%'], itemStyle: { borderColor: '#18181b', borderWidth: 2 },
+                        label: { show: true, color: '#fff', fontSize: 11, fontWeight: 'bold', formatter: '{c}' },
+                        data: [
+                            { value: 2000000, name: 'Colgado', itemStyle: { color: cColg } },
+                            { value: 2000000, name: 'Paqueteria', itemStyle: { color: cPaq } },
+                            { value: 650000, name: 'Zapato', itemStyle: { color: cZap } }
+                        ]
+                    }
+                ]
+            };
+            const fmt = (v) => v >= 1000000 ? (v / 1000000).toFixed(0) + 'M' : (v / 1000).toFixed(0) + 'K';
+            donutOption.series[0].label.formatter = (p) => fmt(p.value);
+            donutOption.series[1].label.formatter = (p) => fmt(p.value);
+
+            // --- BARRAS VERTICALES ---
+            const barOption = {
+                grid: { top: 30, right: 10, bottom: 20, left: 10, containLabel: true },
+                tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+                legend: { show: false },
+                xAxis: {
+                    type: 'category', data: ['COLGADO', 'PAQUETERÍA', 'ZAPATO'],
+                    axisLine: { show: false }, axisTick: { show: false },
+                    axisLabel: { color: '#9ca3af', fontWeight: 'bold', fontSize: 11, margin: 15 }
+                },
+                yAxis: { type: 'value', splitLine: { lineStyle: { color: '#333', type: 'dashed' } }, axisLabel: { show: false } },
+                series: [
+                    // PICKING
+                    { name: 'Picking BF', type: 'bar', data: [51.3, 54.1, 54.1], itemStyle: { color: colorBF }, barGap: '0%' },
+                    { name: 'Picking Jan', type: 'bar', data: [48.9, 51.3, 51.2], itemStyle: { color: o1 }, barGap: '0%' },
+
+                    // ESPACIO
+                    { name: '', type: 'bar', data: [0, 0, 0], barWidth: 10, tooltip: { show: false } },
+
+                    // RBS
+                    { name: 'RBS BF', type: 'bar', data: [69.4, 81.0, 77.7], itemStyle: { color: colorBF }, barGap: '0%' },
+                    { name: 'RBS Jan', type: 'bar', data: [80.2, 93.4, 88.8], itemStyle: { color: o2 }, barGap: '0%' },
+
+                    // ESPACIO
+                    { name: '', type: 'bar', data: [0, 0, 0], barWidth: 10, tooltip: { show: false } },
+
+                    // AUTO
+                    { name: 'Auto BF', type: 'bar', data: [110.8, 112.0, 0], itemStyle: { color: colorBF }, barGap: '0%' },
+                    { name: 'Auto Jan', type: 'bar', data: [121.8, 121.8, 0], itemStyle: { color: o3 }, barGap: '0%' }
+                ]
+            };
+
+            // ETIQUETAS HORIZONTALES (Rotate 0)
+            const labelProps = { show: true, position: 'top', color: '#fff', fontSize: 9, formatter: '{c}', rotate: 0, fontWeight: 'bold', distance: 5 };
+            barOption.series.forEach(s => {
+                if (s.name && s.name !== '') {
+                    s.label = JSON.parse(JSON.stringify(labelProps)); // Clone
+                    if (s.name.includes('BF')) {
+                        s.label.color = '#888';
+                        s.label.fontSize = 8;
+                        s.label.fontWeight = 'normal';
+                        s.label.position = 'top'; // O 'insideTop' si preferimos
+                    }
+                }
+            });
+
+            cDonut.setOption(donutOption);
+            cBar.setOption(barOption);
+            window.addEventListener('resize', () => { cDonut.resize(); cBar.resize(); });
+        })();
+    </script>
+    <script src="global.js"></script>
+</body>
+
+</html>
