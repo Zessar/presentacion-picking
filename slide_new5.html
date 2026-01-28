@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Suite de Herramientas de Auditoría</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 60px;
+            box-sizing: border-box;
+            background-color: #f8fafc;
+            position: relative;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2394a3b8' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 40px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 10px 0;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #64748b;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex: 1;
+            padding-bottom: 20px;
+        }
+
+        .card {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-top-border {
+            height: 6px;
+            width: 100%;
+        }
+
+        .border-blue {
+            background-color: #3b82f6;
+        }
+
+        .border-green {
+            background-color: #10b981;
+        }
+
+        .border-orange {
+            background-color: #f59e0b;
+        }
+
+        .card-content {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .bg-blue-light {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .bg-green-light {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .bg-orange-light {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .divider {
+            width: 40px;
+            height: 3px;
+            background-color: #e2e8f0;
+            margin-bottom: 20px;
+            border-radius: 2px;
+        }
+
+        .features-list {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #475569;
+            background-color: #f8fafc;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .features-list li i {
+            margin-right: 12px;
+            font-size: 14px;
+        }
+
+        .text-blue {
+            color: #3b82f6;
+        }
+
+        .text-green {
+            color: #10b981;
+        }
+
+        .text-orange {
+            color: #f59e0b;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background-color: #f1f5f9;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h1>Herramientas de Excelencia Operacional</h1>
+            <p>Suite de auditoría interna para la optimización del desempeño y calidad</p>
+        </div>
+
+        <div class="cards-container">
+            <!-- Card 1: Tiempos -->
+            <div class="card">
+                <div class="card-top-border border-blue"></div>
+                <div class="status-badge">Auditoría Temporal</div>
+                <div class="card-content">
+                    <div class="icon-circle bg-blue-light"><i class="fas fa-stopwatch"></i></div>
+                    <h2 class="card-title">Control de Tiempos</h2>
+                    <p class="card-subtitle">Eficiencia & Productividad</p>
+                    <div class="divider"></div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-route text-blue"></i> Tiempos de tránsito entre ubicaciones</li>
+                        <li><i class="fas fa-hand-pointer text-blue"></i> Tiempo real de picada (Picking)</li>
+                        <li><i class="fas fa-layer-group text-blue"></i> Cambios de planta/cuadrante</li>
+                        <li><i class="fas fa-box-open text-blue"></i> Cambios de contenedor</li>
+                        <li><i class="fas fa-mobile-alt text-blue"></i> Tiempos de cambio de PDA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 2: Calidad -->
+            <div class="card">
+                <div class="card-top-border border-green"></div>
+                <div class="status-badge">Calidad de Stock</div>
+                <div class="card-content">
+                    <div class="icon-circle bg-green-light"><i class="fas fa-boxes-stacked"></i></div>
+                    <h2 class="card-title">Falsos Vacíos</h2>
+                    <p class="card-subtitle">Verificación de 'NO STOCK'</p>
+                    <div class="divider"></div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-eye text-green"></i> Validación: Error de visión</li>
+                        <li><i class="fas fa-search text-green"></i> Validación: Error de búsqueda</li>
+                        <li><i class="fas fa-check-circle text-green"></i> Confirmación de falta real</li>
+                        <li><i class="fas fa-arrow-trend-down text-green"></i> Reducción de huecos improductivos</li>
+                        <li><i class="fas fa-shield-halved text-green"></i> Fiabilidad del inventario</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 3: Feedback -->
+            <div class="card">
+                <div class="card-top-border border-orange"></div>
+                <div class="status-badge">Gestión del Desempeño</div>
+                <div class="card-content">
+                    <div class="icon-circle bg-orange-light"><i class="fas fa-clipboard-user"></i></div>
+                    <h2 class="card-title">Error LOG y Métricas</h2>
+                    <p class="card-subtitle">Feedback & Mejora Continua</p>
+                    <div class="divider"></div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-thumbs-up text-orange"></i> Registro de feedback (+ / -)</li>
+                        <li><i class="fas fa-file-pen text-orange"></i> Formularios de mejora continua</li>
+                        <li><i class="fas fa-calendar-day text-orange"></i> Histórico productividad diaria</li>
+                        <li><i class="fas fa-calendar-week text-orange"></i> Seguimiento semanal/mensual</li>
+                        <li><i class="fas fa-chart-line text-orange"></i> Evolución del usuario</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

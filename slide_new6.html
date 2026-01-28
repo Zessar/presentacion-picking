@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Análisis de Incidencias: Alarmado y Etiquetado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 60px;
+            box-sizing: border-box;
+            background-color: #f8fafc;
+            position: relative;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2394a3b8' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .diagram-container {
+            display: flex;
+            align-items: stretch;
+            gap: 20px;
+            flex: 1;
+            padding-bottom: 20px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .col-problem {
+            width: 25%;
+        }
+
+        .col-causes {
+            width: 50%;
+        }
+
+        .col-impact {
+            width: 25%;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .text-red {
+            color: #ef4444;
+        }
+
+        .text-orange {
+            color: #f59e0b;
+        }
+
+        .text-blue {
+            color: #3b82f6;
+        }
+
+        .border-red {
+            border-bottom-color: #ef4444;
+        }
+
+        .border-orange {
+            border-bottom-color: #f59e0b;
+        }
+
+        .border-blue {
+            border-bottom-color: #3b82f6;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-problem {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom right, #fff, #fef2f2);
+            border-left: 5px solid #ef4444;
+        }
+
+        .problem-icon {
+            font-size: 48px;
+            color: #ef4444;
+            margin-bottom: 20px;
+            background: rgba(239, 68, 68, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .problem-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+
+        .card-cause {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: transform 0.2s;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .card-cause:hover {
+            transform: translateX(5px);
+        }
+
+        .cause-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d97706;
+            flex-shrink: 0;
+        }
+
+        .cause-content h3 {
+            margin: 0 0 5px 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .cause-content p {
+            margin: 0;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .badge-source {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 5px;
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .card-impact {
+            flex: 1;
+            background: linear-gradient(to bottom right, #fff, #eff6ff);
+            border-left: 5px solid #3b82f6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .impact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .impact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+        }
+
+        .impact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .impact-icon {
+            color: #3b82f6;
+            font-size: 16px;
+        }
+
+        .impact-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            font-size: 24px;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h1><i class="fas fa-magnifying-glass-chart text-blue mr-3"></i>Investigación de Fugas de Calidad</h1>
+            <p>Análisis Causa-Raíz: Incidencias en Alarmado y Etiquetado</p>
+        </div>
+        <div class="diagram-container">
+            <!-- PROBLEMA -->
+            <div class="column col-problem">
+                <div class="section-header border-red">
+                    <i class="fas fa-triangle-exclamation text-red"></i>
+                    <span class="section-title text-red">Problema</span>
+                </div>
+                <div class="card card-problem">
+                    <div class="problem-icon"><i class="fas fa-tags"></i></div>
+                    <p class="problem-text">Entrada de productos <br /><strong>no alarmados</strong> o <br /><strong>mal
+                            etiquetados</strong></p>
+                    <div
+                        style="margin-top: 15px; font-size: 12px; color: #ef4444; background: rgba(239,68,68,0.1); padding: 5px 10px; border-radius: 10px;">
+                        <i class="fas fa-arrow-right mr-1"></i> Fuga Crítica
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"><i class="fas fa-chevron-right"></i></div>
+
+            <!-- CAUSAS -->
+            <div class="column col-causes">
+                <div class="section-header border-orange">
+                    <i class="fas fa-stethoscope text-orange"></i>
+                    <span class="section-title text-orange">Causas Detectadas</span>
+                </div>
+                <div class="card card-cause">
+                    <div class="cause-icon"><i class="fas fa-rotate-left"></i></div>
+                    <div class="cause-content">
+                        <h3>Devoluciones Online y Tienda</h3>
+                        <p>Retorno de prendas sin re-alarmar o con alarmas desactivadas en origen.</p>
+                        <span class="badge-source">Origen: Logística Inversa</span>
+                    </div>
+                </div>
+                <div class="card card-cause">
+                    <div class="cause-icon"><i class="fas fa-dolly"></i></div>
+                    <div class="cause-content">
+                        <h3>Errores en Túneles de Decantado</h3>
+                        <p>Fallos de lectura en el proceso automatizado y pérdida de trazabilidad.</p>
+                        <span class="badge-source">Origen: Automatización</span>
+                    </div>
+                </div>
+                <div class="card card-cause">
+                    <div class="cause-icon"><i class="fas fa-barcode"></i></div>
+                    <div class="cause-content">
+                        <h3>Etiquetado de Origen Erróneo</h3>
+                        <p>Discrepancia crítica entre etiqueta exterior (caja/bolsa) e interior (prenda).</p>
+                        <span class="badge-source">Origen: Proveedor</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"><i class="fas fa-chevron-right"></i></div>
+
+            <!-- IMPACTO -->
+            <div class="column col-impact">
+                <div class="section-header border-blue">
+                    <i class="fas fa-burst text-blue"></i>
+                    <span class="section-title text-blue">Impacto Operativo</span>
+                </div>
+                <div class="card card-impact">
+                    <ul class="impact-list">
+                        <li class="impact-item"><i class="fas fa-box-open impact-icon"></i><span
+                                class="impact-text">Ciclos de "Falsos Vacíos"</span></li>
+                        <li class="impact-item"><i class="fas fa-file-circle-xmark impact-icon"></i><span
+                                class="impact-text">Discrepancia Inventario</span></li>
+                        <li class="impact-item"><i class="fas fa-stopwatch impact-icon"></i><span
+                                class="impact-text">Pérdida Productividad</span></li>
+                        <li class="impact-item"><i class="fas fa-users-slash impact-icon"></i><span
+                                class="impact-text">Afectación Servicio</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

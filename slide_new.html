@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativa Operativa: SUELO vs AGV</title>
+    <!-- Fuentes y Estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor Slide */
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background: #0a0a0a;
+            background-image:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 30%),
+                linear-gradient(45deg, transparent 70%, rgba(255, 255, 255, 0.01) 100%);
+            padding: 35px 50px;
+            /* Un poco menos de padding arriba */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            /* Barra más fina */
+            background: #FF5000;
+        }
+
+        /* Header Ajustado */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            /* Más pequeño (antes 38px) */
+            font-weight: 700;
+            margin: 0;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #9ca3af;
+            margin: 4px 0 0 0;
+            font-weight: 500;
+        }
+
+        .header .sub-detail {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Leyenda */
+        .legend-box {
+            display: flex;
+            gap: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #d1d5db;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Puntos de leyenda con borde para coincidir con gráfica */
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+
+        .dot-bf {
+            background: rgba(75, 85, 99, 0.4);
+            border: 1px solid #6b7280;
+        }
+
+        .dot-jan {
+            background: rgba(255, 80, 0, 0.4);
+            border: 1px solid #FF5000;
+        }
+
+        /* --- KPI SECTION --- */
+        .kpi-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .period-block {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 12px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .period-header {
+            font-size: 13px;
+            font-weight: 800;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .period-block.current {
+            background: rgba(255, 80, 0, 0.02);
+            /* Muy sutil */
+            border: 1px solid rgba(255, 80, 0, 0.2);
+        }
+
+        .period-block.current .period-header {
+            color: #FF5000;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .metric-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .metric-label {
+            width: 80px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .data-point {
+            text-align: right;
+            width: 90px;
+        }
+
+        .data-label {
+            display: block;
+            font-size: 9px;
+            color: #6b7280;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 1px;
+        }
+
+        .data-value {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .data-value.orange {
+            color: #FF5000;
+        }
+
+        .separator {
+            width: 1px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 8px;
+        }
+
+        /* --- CHARTS SECTION --- */
+        .charts-row {
+            display: flex;
+            gap: 25px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .chart-wrapper {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #d1d5db;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .chart-title i {
+            color: #FF5000;
+            font-size: 12px;
+        }
+
+        .echart-div {
+            width: 100%;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="slide-container">
+        <div class="top-bar"></div>
+
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>Comparativa Operativa</h1>
+                <p>Análisis de Rendimiento: AGV vs MANUAL</p>
+                <div class="sub-detail">Volumen y productividad por tipo de zona y operativa</div>
+            </div>
+            <div class="legend-box">
+                <div class="legend-item">
+                    <span class="dot dot-bf"></span> Black Friday '25
+                </div>
+                <div class="legend-item">
+                    <span class="dot dot-jan"></span> Enero '26
+                </div>
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpi-container">
+            <!-- BLOQUE 1: BLACK FRIDAY -->
+            <div class="period-block">
+                <div class="period-header">
+                    <span>Camp. Black Friday</span>
+                </div>
+
+                <div class="metric-row">
+                    <div class="metric-label"><i class="fas fa-people-carry-box text-gray-500"></i> SUELO</div>
+                    <div class="data-point"><span class="data-label">Volumen</span><span class="data-value">3.0M</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="data-point"><span class="data-label">Horas</span><span class="data-value">43.2K</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="data-point"><span class="data-label">Prod.</span><span class="data-value">68.3</span>
+                    </div>
+                </div>
+
+                <div style="height: 1px; background: rgba(255,255,255,0.05); margin: 8px 0;"></div>
+
+                <div class="metric-row">
+                    <div class="metric-label"><i class="fas fa-robot text-gray-500"></i> AGV</div>
+                    <div class="data-point"><span class="data-label">Volumen</span><span class="data-value">2.2M</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="data-point"><span class="data-label">Horas</span><span class="data-value">19.4K</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="data-point"><span class="data-label">Prod.</span><span class="data-value">111.5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 2: SALDOS ENERO -->
+            <div class="period-block current">
+                <div class="period-header">
+                    <span>Camp. Saldos Enero</span>
+                </div>
+
+                <div class="metric-row">
+                    <div class="metric-label" style="color:#FF5000"><i class="fas fa-people-carry-box"></i> SUELO</div>
+                    <div class="data-point"><span class="data-label">Volumen</span><span class="data-value">2.6M</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="data-point"><span class="data-label">Horas</span><span class="data-value">34.1K</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="data-point"><span class="data-label">Prod.</span><span
+                            class="data-value orange">74.9</span></div>
+                </div>
+
+                <div style="height: 1px; background: rgba(255,80,0,0.2); margin: 8px 0;"></div>
+
+                <div class="metric-row">
+                    <div class="metric-label" style="color:#FF5000"><i class="fas fa-robot"></i> AGV</div>
+                    <div class="data-point"><span class="data-label">Volumen</span><span class="data-value">2.1M</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="data-point"><span class="data-label">Horas</span><span class="data-value">17.4K</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="data-point"><span class="data-label">Prod.</span><span
+                            class="data-value orange">121.8</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficas -->
+        <div class="charts-row">
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    <i class="fas fa-chart-column"></i> Volumen (Millones)
+                </div>
+                <div id="volumenChart" class="echart-div"></div>
+            </div>
+
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    <i class="fas fa-tachometer-alt"></i> Productividad (Uds/Hora)
+                </div>
+                <div id="prodChart" class="echart-div"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const volChart = echarts.init(document.getElementById('volumenChart'));
+        const prodChart = echarts.init(document.getElementById('prodChart'));
+
+        const commonOption = {
+            grid: { top: '15%', left: '3%', right: '4%', bottom: '5%', containLabel: true },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                backgroundColor: 'rgba(20, 20, 20, 0.95)',
+                borderColor: '#333',
+                textStyle: { color: '#fff' }
+            },
+            xAxis: {
+                type: 'category',
+                axisTick: { show: false },
+                axisLine: { show: false },
+                axisLabel: { color: '#9ca3af', fontSize: 10, fontWeight: 600 }
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: { lineStyle: { color: '#333', type: 'dashed', opacity: 0.5 } },
+                axisLabel: { color: '#6b7280', fontSize: 10 }
+            }
+        };
+
+        // Estilo Translúcido BF (Gris)
+        const styleBF = {
+            color: 'rgba(75, 85, 99, 0.3)', // Relleno gris transparente
+            borderColor: '#6b7280',         // Borde gris sólido
+            borderWidth: 1
+        };
+
+        // Estilo Translúcido Enero (Naranja GXO Suave)
+        const styleJan = {
+            color: 'rgba(255, 80, 0, 0.3)', // Relleno naranja transparente (menos doloroso)
+            borderColor: '#FF5000',         // Borde naranja corporativo
+            borderWidth: 1
+        };
+
+        // CHART 1: VOLUMEN
+        const volOption = {
+            ...commonOption,
+            xAxis: { ...commonOption.xAxis, data: ['Picking Auto', 'Picking Manual', 'RBS Pick'] },
+            series: [
+                {
+                    name: 'Black Friday',
+                    type: 'bar',
+                    data: [2.2, 0.77, 2.2],
+                    itemStyle: styleBF,
+                    barGap: '20%',
+                    label: { show: true, position: 'top', color: '#6b7280', fontSize: 11, formatter: '{c}M' }
+                },
+                {
+                    name: 'Saldos Enero',
+                    type: 'bar',
+                    data: [2.1, 0.59, 2.0],
+                    itemStyle: styleJan,
+                    label: { show: true, position: 'top', color: '#fff', fontWeight: 'bold', fontSize: 14, formatter: '{c}M' }
+                }
+            ]
+        };
+
+        // CHART 2: PRODUCTIVIDAD
+        const prodOption = {
+            ...commonOption,
+            xAxis: { ...commonOption.xAxis, data: ['Picking Auto', 'Picking Manual', 'RBS Pick'] },
+            series: [
+                {
+                    name: 'Black Friday',
+                    type: 'bar',
+                    data: [111.5, 53.1, 76.0],
+                    itemStyle: styleBF,
+                    barGap: '20%',
+                    label: { show: true, position: 'top', color: '#6b7280', fontSize: 11 }
+                },
+                {
+                    name: 'Saldos Enero',
+                    type: 'bar',
+                    data: [121.8, 50.4, 87.7],
+                    itemStyle: styleJan,
+                    label: { show: true, position: 'top', color: '#fff', fontWeight: 'bold', fontSize: 14 }
+                }
+            ]
+        };
+
+        volChart.setOption(volOption);
+        prodChart.setOption(prodOption);
+
+        window.addEventListener('resize', () => {
+            volChart.resize();
+            prodChart.resize();
+        });
+    </script>
+
+    <script src="global.js"></script>
+</body>
+
+</html>

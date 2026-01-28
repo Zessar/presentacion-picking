@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productividad por Zona - GXO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background: #050505;
+            position: relative;
+            overflow: hidden;
+            padding: 25px 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- FONDO --- */
+        .spotlight {
+            position: absolute;
+            width: 150%;
+            height: 60%;
+            filter: blur(80px);
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .spot-1 {
+            top: -20%;
+            left: -20%;
+            background: linear-gradient(135deg, transparent, #ffffff, transparent);
+            transform: rotate(-15deg);
+        }
+
+        .spot-2 {
+            bottom: -20%;
+            right: -20%;
+            background: linear-gradient(135deg, transparent, #FF5000, transparent);
+            transform: rotate(-15deg);
+        }
+
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #333 0%, #FF5000 50%, #333 100%);
+            z-index: 10;
+        }
+
+        /* HEADER */
+        .header {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #9ca3af;
+            margin: 2px 0 0 0;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px 12px;
+            border-radius: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #d1d5db;
+        }
+
+        /* PUNTOS DE LEYENDA (CUADRADOS) */
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 0px;
+        }
+
+        /* Cuadrados perfectos */
+        .dot-bf {
+            background: #4b5563;
+            border: 1px solid #6b7280;
+        }
+
+        .dot-group {
+            display: flex;
+            gap: 4px;
+        }
+
+        .dot-jan-1 {
+            background: #a78bfa;
+            width: 10px;
+            height: 10px;
+            border-radius: 0px;
+        }
+
+        /* Violeta */
+        .dot-jan-2 {
+            background: #fbbf24;
+            width: 10px;
+            height: 10px;
+            border-radius: 0px;
+        }
+
+        /* Naranja */
+        .dot-jan-3 {
+            background: #34d399;
+            width: 10px;
+            height: 10px;
+            border-radius: 0px;
+        }
+
+        /* Verde */
+
+        /* LAYOUT PRINCIPAL */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* SECCIÓN SUPERIOR (AGV) */
+        .top-section {
+            flex: 1.1;
+            display: flex;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .agv-text-panel {
+            width: 25%;
+            background: rgba(255, 255, 255, 0.02);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .agv-chart-panel {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* SECCIÓN INFERIOR (SUELO) */
+        .bottom-section {
+            flex: 0.9;
+            display: flex;
+            gap: 15px;
+        }
+
+        .panel-half {
+            flex: 1;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* CABECERAS */
+        .panel-header {
+            padding: 10px 15px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.03), transparent);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-agv {
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .badge-suelo {
+            background: rgba(249, 115, 22, 0.15);
+            color: #fdba74;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+
+        .badge-rbs {
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* GRÁFICAS */
+        .chart-container {
+            flex: 1;
+            width: 100%;
+            min-height: 0;
+            padding: 5px 10px;
+        }
+
+        .echart-div {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* INSIGHTS */
+        .insight-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding-left: 12px;
+            border-left: 3px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .insight-block.danger {
+            border-left-color: #f43f5e;
+        }
+
+        .insight-block.success {
+            border-left-color: #34d399;
+        }
+
+        .insight-block.neutral {
+            border-left-color: #9ca3af;
+        }
+
+        .ib-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ib-value {
+            font-size: 13px;
+            color: #f3f4f6;
+            line-height: 1.4;
+        }
+
+        .ib-hl {
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .c-red {
+            color: #f43f5e;
+        }
+
+        .c-green {
+            color: #34d399;
+        }
+
+        .c-neutral {
+            color: #9ca3af;
+        }
+
+        /* FOOTER */
+        .mini-footer {
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            min-height: 45px;
+        }
+
+        .mf-icon {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .mf-text {
+            font-size: 12px;
+            color: #d1d5db;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="slide-container">
+        <div class="spotlight spot-1"></div>
+        <div class="spotlight spot-2"></div>
+        <div class="top-accent"></div>
+
+        <div class="header">
+            <div>
+                <h1>Productividad por Zona</h1>
+                <p>Análisis de Rendimiento: Zonas Automatizadas (AGV) vs Plantas Manuales</p>
+            </div>
+            <div class="header-actions">
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="dot dot-bf"></div> Black Friday
+                    </div>
+                    <div class="legend-item">
+                        <div class="dot-group">
+                            <div class="dot-jan-1"></div>
+                            <div class="dot-jan-2"></div>
+                            <div class="dot-jan-3"></div>
+                        </div>
+                        &nbsp; Enero
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+
+            <!-- SECCIÓN SUPERIOR: AGV -->
+            <div class="top-section">
+                <div class="agv-text-panel">
+                    <div
+                        style="font-size:12px; font-weight:900; color:#a78bfa; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;">
+                        <i class="fas fa-robot"></i> Análisis AGV
+                    </div>
+
+                    <div class="insight-block danger">
+                        <span class="ib-label">Zona Crítica</span>
+                        <span class="ib-value"><strong>Zona 5100</strong> cae de 158 a <span class="c-red">63
+                                u/h</span>. Requiere intervención técnica inmediata.</span>
+                    </div>
+
+                    <div class="insight-block success">
+                        <span class="ib-label">Zona Top</span>
+                        <span class="ib-value"><strong>Zona 4100</strong> se consolida como líder con <span
+                                class="c-green">146 u/h</span> (+30% vs BF), marcando el estándar de eficiencia.</span>
+                    </div>
+
+                    <div class="insight-block neutral">
+                        <span class="ib-label">Tendencia Global</span>
+                        <span class="ib-value">Estabilidad general en el sistema, con repuntes significativos de mejora
+                            en las zonas 3000 y 4000.</span>
+                    </div>
+                </div>
+
+                <div class="agv-chart-panel">
+                    <div class="panel-header" style="border-bottom:none; padding-bottom:0;">
+                        <div class="panel-title"></div>
+                        <div class="badge badge-agv">13 Zonas Operativas</div>
+                    </div>
+                    <div class="chart-container">
+                        <div id="chartAGV" class="echart-div"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN INFERIOR: SUELO -->
+            <div class="bottom-section">
+
+                <!-- Picking -->
+                <div class="panel-half">
+                    <div class="panel-header">
+                        <div class="panel-title" style="color:#fdba74"><i class="fas fa-box-open"></i> Picking Manual
+                        </div>
+                        <div class="badge badge-suelo">Plantas 0-3</div>
+                    </div>
+                    <div class="chart-container">
+                        <div id="chartPick" class="echart-div"></div>
+                    </div>
+                    <div class="mini-footer">
+                        <i class="fas fa-exclamation-circle c-red mf-icon"></i>
+                        <span class="mf-text"><strong>Descenso Generalizado:</strong> Se observa una bajada de
+                            rendimiento en todas las plantas respecto a campaña. La <strong>P0</strong> es la más
+                            afectada (-14%), mientras que la <strong>P1</strong> resiste mejor manteniendo 53.6
+                            u/h.</span>
+                    </div>
+                </div>
+
+                <!-- RBS -->
+                <div class="panel-half">
+                    <div class="panel-header">
+                        <div class="panel-title" style="color:#6ee7b7"><i class="fas fa-sync-alt"></i> RBS Sorter</div>
+                        <div class="badge badge-rbs">Mejor Rendimiento</div>
+                    </div>
+                    <div class="chart-container">
+                        <div id="chartRBS" class="echart-div"></div>
+                    </div>
+                    <div class="mini-footer">
+                        <i class="fas fa-check-circle c-green mf-icon"></i>
+                        <span class="mf-text"><strong>Éxito Operativo:</strong> Todas las plantas superan los ratios del
+                            Black Friday. La <strong>Planta 0</strong> lidera con un crecimiento del <span
+                                class="c-green">+15%</span> (94.0 u/h), validando las mejoras técnicas del
+                            sorter.</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        (function () {
+            const cAGV = echarts.init(document.getElementById('chartAGV'));
+            const cPick = echarts.init(document.getElementById('chartPick'));
+            const cRBS = echarts.init(document.getElementById('chartRBS'));
+
+            // Configuración Base
+            const labelStyle = { color: '#9ca3af', fontWeight: 'bold', fontSize: 10 };
+            const splitLineStyle = { lineStyle: { color: '#333', type: 'dashed' } };
+
+            // Estilo Black Friday (Gris)
+            const styleBF = { color: '#4b5563', borderRadius: [2, 2, 0, 0] };
+
+            // Estilos Enero Diferenciados
+            const styleJanAGV = {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: '#a78bfa' }, { offset: 1, color: '#7c3aed' }]), // Violeta
+                borderRadius: [2, 2, 0, 0]
+            };
+            const styleJanPick = {
+                color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{ offset: 0, color: '#fbbf24' }, { offset: 1, color: '#d97706' }]), // Ambar/Naranja
+                borderRadius: [0, 2, 2, 0]
+            };
+            const styleJanRBS = {
+                color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{ offset: 0, color: '#34d399' }, { offset: 1, color: '#059669' }]), // Verde/Esmeralda
+                borderRadius: [0, 2, 2, 0]
+            };
+
+            // --- AGV DATA (Vertical) ---
+            // Nombres simplificados a números
+            const agvZones = ['1000', '1100', '1200', '2000', '2100', '2200', '3000', '3100', '3200', '4100', '5000', '5100', '5200'];
+            const agvJan = [122.8, 110.4, 112.7, 137.1, 108.7, 115.4, 145.2, 129.6, 117.5, 146.0, 123.3, 62.9, 134.9];
+            const agvBF = [106.6, 102.9, 102.1, 122.1, 103.1, 106.1, 134.6, 112.6, 112.5, 142.3, 107.3, 158.5, 117.3];
+
+            const optionAGV = {
+                grid: { top: 25, right: 30, bottom: 20, left: 10, containLabel: true },
+                tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: 'rgba(20,20,20,0.95)', textStyle: { color: '#fff' } },
+                xAxis: {
+                    type: 'category',
+                    data: agvZones,
+                    axisLabel: { ...labelStyle, rotate: 0, interval: 0, fontSize: 9 },
+                    axisTick: { show: false },
+                    axisLine: { show: false }
+                },
+                yAxis: { type: 'value', splitLine: splitLineStyle, axisLabel: { show: false } },
+                series: [
+                    {
+                        name: 'BF', type: 'bar', data: agvBF, itemStyle: styleBF, barGap: '0%', barCategoryGap: '25%',
+                        label: { show: true, position: 'top', color: '#ffffff', fontSize: 8, fontWeight: 'bold', formatter: '{c}' }
+                    },
+                    {
+                        name: 'Enero', type: 'bar', data: agvJan, itemStyle: styleJanAGV,
+                        label: { show: true, position: 'top', color: '#fff', fontSize: 9, fontWeight: 'bold', formatter: '{c}' }
+                    }
+                ]
+            };
+
+            // --- SUELO DATA (Horizontal) ---
+            const plants = ['P0', 'P1', 'P2', 'P3'];
+            const styleBFHoriz = { color: '#4b5563', borderRadius: [0, 2, 2, 0] };
+
+            const baseHorizOption = {
+                grid: { top: 5, right: 25, bottom: 5, left: 5, containLabel: true },
+                tooltip: { trigger: 'axis' },
+                xAxis: { type: 'value', show: false },
+                yAxis: { type: 'category', data: plants, axisLine: { show: false }, axisTick: { show: false }, axisLabel: { ...labelStyle, color: '#fff', fontSize: 11 } },
+            };
+
+            const optionPick = {
+                ...baseHorizOption,
+                series: [
+                    { name: 'BF', type: 'bar', data: [48.7, 55.5, 51.0, 56.3], itemStyle: styleBFHoriz, barGap: '10%', label: { show: true, position: 'right', color: '#fff', fontSize: 9, formatter: '{c}' } },
+                    { name: 'Enero', type: 'bar', data: [41.9, 53.6, 50.3, 53.0], itemStyle: styleJanPick, label: { show: true, position: 'right', color: '#fff', fontSize: 11, fontWeight: 'bold', formatter: '{c}' } }
+                ]
+            };
+
+            const optionRBS = {
+                ...baseHorizOption,
+                series: [
+                    { name: 'BF', type: 'bar', data: [81.4, 76.5, 67.4, 78.6], itemStyle: styleBFHoriz, barGap: '10%', label: { show: true, position: 'right', color: '#fff', fontSize: 9, formatter: '{c}' } },
+                    { name: 'Enero', type: 'bar', data: [94.0, 90.4, 76.3, 89.1], itemStyle: styleJanRBS, label: { show: true, position: 'right', color: '#fff', fontSize: 11, fontWeight: 'bold', formatter: '{c}' } }
+                ]
+            };
+
+            cAGV.setOption(optionAGV);
+            cPick.setOption(optionPick);
+            cRBS.setOption(optionRBS);
+
+            window.addEventListener('resize', () => { [cAGV, cPick, cRBS].forEach(c => c.resize()); });
+        })();
+    </script>
+
+    <script src="global.js"></script>
+</body>
+
+</html>

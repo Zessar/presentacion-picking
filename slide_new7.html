@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Impacto Esperado & Hoja de Ruta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 60px;
+            box-sizing: border-box;
+            background-color: #f8fafc;
+            position: relative;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2394a3b8' fill-opacity='0.05'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #64748b;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            flex: 1;
+            padding-bottom: 20px;
+        }
+
+        /* Left Col */
+        .benefits-col {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .col-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .col-title i {
+            margin-right: 12px;
+        }
+
+        .benefit-card {
+            background: #fff;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            border: 1px solid #f1f5f9;
+            transition: transform 0.2s;
+        }
+
+        .benefit-card:hover {
+            transform: translateX(5px);
+            border-color: #cbd5e1;
+        }
+
+        .benefit-icon {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .benefit-content {
+            flex: 1;
+        }
+
+        .benefit-title {
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 15px;
+            margin: 0 0 4px 0;
+        }
+
+        .benefit-desc {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Right Col */
+        .roadmap-col {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .roadmap-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .roadmap-line {
+            position: absolute;
+            left: 39px;
+            top: 20px;
+            bottom: 40px;
+            width: 2px;
+            background-color: #e2e8f0;
+            z-index: 0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 2px solid #3b82f6;
+            color: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            margin-right: 20px;
+            box-shadow: 0 0 0 4px #eff6ff;
+            flex-shrink: 0;
+        }
+
+        .step-item:last-child .step-number {
+            background-color: #3b82f6;
+            color: #fff;
+            border-color: #2563eb;
+        }
+
+        .step-card {
+            flex: 1;
+            background-color: #f8fafc;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #334155;
+            font-size: 16px;
+            margin: 0 0 4px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .step-tag {
+            font-size: 10px;
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .kpi-row {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            padding-top: 20px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        .kpi-badge {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h1>Impacto Esperado & Hoja de Ruta</h1>
+            <p>Implementación estratégica de la nueva suite de auditoría</p>
+        </div>
+        <div class="main-grid">
+            <!-- Benefits -->
+            <div class="benefits-col">
+                <div class="col-title" style="color: #10b981; border-color: #10b981;">
+                    <i class="fas fa-chart-line"></i> Beneficios Operativos
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="benefit-content">
+                        <h3 class="benefit-title">Reducción de Tiempos Muertos</h3>
+                        <p class="benefit-desc">Optimización del 15% en tiempos de tránsito y cambios de planta.</p>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="benefit-content">
+                        <h3 class="benefit-title">Precisión de Inventario</h3>
+                        <p class="benefit-desc">Eliminación drástica de "falsos vacíos" mediante validación.</p>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-user-check"></i></div>
+                    <div class="benefit-content">
+                        <h3 class="benefit-title">Optimización de Usuario</h3>
+                        <p class="benefit-desc">Mejora del rendimiento individual mediante feedback continuo.</p>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-database"></i></div>
+                    <div class="benefit-content">
+                        <h3 class="benefit-title">Cultura Data-Driven</h3>
+                        <p class="benefit-desc">Decisiones basadas en datos históricos fiables.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roadmap -->
+            <div class="roadmap-col">
+                <div class="col-title" style="color: #3b82f6; border-color: #3b82f6;">
+                    <i class="fas fa-map-signs"></i> Próximos Pasos
+                </div>
+                <div class="roadmap-container">
+                    <div class="roadmap-line"></div>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-card">
+                            <h3 class="step-title">Fase Piloto <span class="step-tag">Semana 1-2</span></h3>
+                            <p class="step-desc">Despliegue controlado en Planta 0 para calibración.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-card">
+                            <h3 class="step-title">Capacitación <span class="step-tag">Semana 3</span></h3>
+                            <p class="step-desc">Formación de usuarios y mandos en nuevas herramientas.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-card">
+                            <h3 class="step-title">Despliegue General <span class="step-tag">Semana 4</span></h3>
+                            <p class="step-desc">Implementación progresiva en todas las plantas.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number"><i class="fas fa-flag-checkered"></i></div>
+                        <div class="step-card" style="background-color: #eff6ff; border-color: #bfdbfe;">
+                            <h3 class="step-title text-blue-700">Seguimiento KPIs <span class="step-tag">Continuo</span>
+                            </h3>
+                            <p class="step-desc text-blue-600">Monitoreo de impacto: Productividad y Calidad.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-row">
+                    <div class="kpi-badge"><i class="fas fa-check"></i> % Tiempos Muertos</div>
+                    <div class="kpi-badge"><i class="fas fa-check"></i> Tasa Falsos Vacíos</div>
+                    <div class="kpi-badge"><i class="fas fa-check"></i> Calidad Alarmado</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>
