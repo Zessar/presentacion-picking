@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Mejora 1 - Evitar Desplazamientos</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .gxo-orange-bg {
+            background-color: #FF5000;
+        }
+
+        .gxo-orange-border {
+            border-color: #FF5000;
+        }
+
+        .shadow-soft {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 1.5rem;
+        }
+
+        .arrow-connector {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            background: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #9ca3af;
+        }
+    </style>
+</head>
+
+<body style="">
+    <div class="slide-container p-12">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+        <!-- Header -->
+        <div class="relative z-10 flex justify-between items-center mb-10 border-b border-gray-200 pb-4">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <span
+                        class="bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mejora
+                        01</span>
+                    <span class="text-gray-400 font-medium text-sm tracking-wide">PICKING SUELO</span>
+                </div>
+                <h1 class="text-4xl font-extrabold text-gray-900">Evitar Desplazamientos</h1>
+                <p class="text-gray-500 text-lg mt-1">Optimización en cambios de cuadrantes</p>
+            </div>
+        </div>
+        <!-- Main Content Area -->
+        <div class="flex-1 flex gap-8 relative mb-8">
+            <!-- Arrow Connector -->
+            <div class="arrow-connector border border-gray-200" style="transform: translate(-32.1734px, -61.4218px);">
+                <i data-lucide="chevron-right"></i>
+            </div>
+            <!-- Problem Column (Left) -->
+            <div class="flex-1 bg-white rounded-xl border border-red-100 shadow-soft p-8 relative overflow-hidden group"
+                style="transform: translate(-2.92485px, -29.2485px);">
+                <div class="absolute top-0 left-0 w-full h-2 bg-red-500"></div>
+                <!-- Background Icon Faded -->
+                <div
+                    class="absolute -bottom-10 -right-10 text-9xl text-red-50 opacity-20 transform -rotate-12 pointer-events-none">
+                    <i data-lucide="user-round"></i>
+                </div>
+                <div class="icon-circle bg-red-50 text-red-500">
+                    <i data-lucide="octagon-alert"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">El Desafío Actual</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i data-lucide="x-circle" class="text-red-500 mt-1.5 mr-3 w-5 h-5"></i>
+                        <p class="text-gray-600 leading-relaxed"><span
+                                class="font-semibold text-gray-800">Desplazamientos excesivos:</span> Pérdida de tiempo
+                            significativa al moverse entre plantas y cuadrantes.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <i data-lucide="x-circle" class="text-red-500 mt-1.5 mr-3 w-5 h-5"></i>
+                        <p class="text-gray-600 leading-relaxed"><span class="font-semibold text-gray-800">Interrupción
+                                del flujo:</span> El cambio de zona rompe la continuidad operativa del picker.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <i data-lucide="x-circle" class="text-red-500 mt-1.5 mr-3 w-5 h-5"></i>
+                        <p class="text-gray-600 leading-relaxed"><span class="font-semibold text-gray-800">Gestión
+                                manual:</span> Dependencia de instrucciones verbales o papel que genera confusión.</p>
+                    </li>
+                </ul>
+            </div>
+            <!-- Solution Column (Right) -->
+            <div class="flex-1 bg-white rounded-xl border border-orange-100 shadow-soft p-8 relative overflow-hidden"
+                style="transform: translate(-3.8998px, -30.2234px);">
+                <div class="absolute top-0 left-0 w-full h-2 gxo-orange-bg"></div>
+                <!-- Background Icon Faded -->
+                <div
+                    class="absolute -bottom-10 -right-10 text-9xl text-orange-50 opacity-20 transform -rotate-12 pointer-events-none">
+                    <i data-lucide="smartphone"></i>
+                </div>
+                <div class="icon-circle bg-orange-50 gxo-orange-text">
+                    <i data-lucide="lightbulb"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Solución Propuesta</h2>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-lg bg-gray-900 text-white flex items-center justify-center text-lg">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg">Personal de Reparto en Planta</h3>
+                            <p class="text-gray-600 text-sm mt-1">Staff dedicado en cada planta para distribuir
+                                cuadrantes y minimizar movimientos de los pickers.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 rounded-lg bg-gray-900 text-white flex items-center justify-center text-lg">
+                            <i data-lucide="tablet"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg">Nueva App de Cuadrantes <span
+                                    class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded ml-2">En
+                                    Desarrollo</span></h3>
+                            <p class="text-gray-600 text-sm mt-1">Interfaz táctil para "picar" cuadrantes, con breves
+                                indicaciones visuales y asignación dinámica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Benefits & Requirements Footer -->
+        <div class="bg-gray-900 text-white rounded-lg p-6 flex justify-between items-center shadow-md"
+            style="position: relative; transform: translate(-3.8998px, -51.6723px);">
+            <div class="flex items-center gap-8">
+                <div>
+                    <p class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Impacto Estimado</p>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="trending-up" class="gxo-orange-text"></i>
+                        <p class="font-bold text-lg">Reducción tiempos muertos</p>
+                    </div>
+                </div>
+                <div class="w-px h-10 bg-gray-700"></div>
+                <div>
+                    <p class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Beneficio Clave</p>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="infinity" class="gxo-orange-text"></i>
+                        <p class="font-bold text-lg">Continuidad de flujo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 bg-gray-800 px-4 py-2 rounded border border-gray-700">
+                <span class="text-xs text-gray-400 uppercase font-bold">Requisitos:</span>
+                <span class="text-sm font-medium"><i data-lucide="check"
+                        class="text-green-500 mr-1 inline-block w-4 h-4"></i>
+                    Tablets/Pantallas</span>
+                <span class="text-sm font-medium"><i data-lucide="check"
+                        class="text-green-500 mr-1 inline-block w-4 h-4"></i> Formación
+                    Express</span>
+            </div>
+        </div>
+        <!-- Footer -->
+
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

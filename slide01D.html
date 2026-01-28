@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard III - Distribución por Prenda</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="branding.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 56px;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .pill-navy {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr 340px;
+            /* Stats sidebar, Chart center, Details right */
+            gap: 24px;
+            flex: 1;
+            margin-top: 16px;
+            align-items: stretch;
+            max-height: 580px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.25rem;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.308);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .accent-orange {
+            border-left: 5px solid #FF5000;
+        }
+
+        .accent-navy {
+            border-left: 5px solid #1e293b;
+        }
+
+        .accent-gray {
+            border-left: 5px solid #94a3b8;
+        }
+
+        .garment-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            border-left: 5px solid transparent;
+        }
+
+        .val-num {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #1e293b;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #1e293b;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .sub-header {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+
+        <header>
+            <div class="flex items-center gap-4 mb-2">
+                <span class="pill-navy uppercase">DASHBOARD 03</span>
+                <span class="text-gray-900 font-extrabold text-[13px] tracking-tight uppercase">ANÁLISIS DE VOLUMEN POR
+                    TIPO DE PRODUCTO</span>
+            </div>
+            <h1 class="text-4xl font-black text-gray-900 tracking-tight leading-none">Distribución por Prenda</h1>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Left: High-Level Stats -->
+            <div class="flex flex-col gap-4">
+                <div class="card stat-card accent-orange flex-1">
+                    <span class="sub-header">MÁXIMO VOLUMEN</span>
+                    <h3 class="text-xl font-black">Paquetería</h3>
+                    <p class="text-xs font-medium text-gray-500">2.58 M unidades totales</p>
+                </div>
+                <div class="card stat-card accent-navy flex-1">
+                    <span class="sub-header">MÉTODO AGV</span>
+                    <h3 class="text-xl font-black">975k <span class="text-sm text-gray-400 font-bold">Colgado</span>
+                    </h3>
+                </div>
+                <div class="card stat-card accent-gray flex-1">
+                    <span class="sub-header">PROD. MEDIA</span>
+                    <h3 class="text-xl font-black">81.2 <span class="text-sm text-gray-400 font-bold">B/H</span></h3>
+                </div>
+            </div>
+
+            <!-- Middle: Chart Section -->
+            <div class="card">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="mb-0">Volumen por Familia</h2>
+                        <p class="text-[11px] text-gray-500 font-bold italic">Unidades preparadas por tipo de prenda</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex items-center gap-2">
+                            <span class="legend-dot" style="background-color: #FF5000;"></span>
+                            <span class="text-[10px] font-bold text-gray-700 uppercase">AGV</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="legend-dot" style="background-color: #1e293b;"></span>
+                            <span class="text-[10px] font-bold text-gray-700 uppercase">RBS</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="legend-dot" style="background-color: #94a3b8;"></span>
+                            <span class="text-[10px] font-bold text-gray-700 uppercase">Manual</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 relative">
+                    <canvas id="garmentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Right: Details/Breakdown -->
+            <div class="card">
+                <h2 class="mb-5 flex items-center">
+                    <i data-lucide="layers" class="w-5 h-5 mr-2 text-orange-500"></i>
+                    Totales por Tipo
+                </h2>
+
+                <div class="garment-row" style="border-left-color: #60a5fa;">
+                    <div class="flex items-center">
+                        <div class="icon-circle bg-blue-50 text-blue-500">
+                            <i data-lucide="shirt" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-bold text-gray-900">Colgado</span>
+                    </div>
+                    <span class="val-num">1.92 M</span>
+                </div>
+
+                <div class="garment-row" style="border-left-color: #fb923c;">
+                    <div class="flex items-center">
+                        <div class="icon-circle bg-orange-50 text-orange-500">
+                            <i data-lucide="package" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-bold text-gray-900">Paquetería</span>
+                    </div>
+                    <span class="val-num">2.58 M</span>
+                </div>
+
+                <div class="garment-row" style="border-left-color: #94a3b8;">
+                    <div class="flex items-center">
+                        <div class="icon-circle bg-gray-50 text-gray-500">
+                            <i data-lucide="component" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-bold text-gray-900">Zapato</span>
+                    </div>
+                    <span class="val-num">0.72 M</span>
+                </div>
+
+                <div class="mt-auto bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i data-lucide="info" class="w-4 h-4 text-blue-500"></i>
+                        <span class="text-[10px] font-black text-gray-600 uppercase">Observación</span>
+                    </div>
+                    <p class="text-[11px] leading-relaxed text-gray-600 font-medium">
+                        La paquetería representa el <strong>49%</strong> del volumen total preparado en la planta
+                        durante el periodo analizado.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const ctx = document.getElementById('garmentChart').getContext('2d');
+
+        // Data from Por_Prenda.csv
+        // Colgado: AGV(975616), RBS(719603), Manual(234629)
+        // Paqueteria: AGV(1187365), RBS(1113377), Manual(280593)
+        // Zapato: RBS(529797), Manual(192288)
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['COLGADO', 'PAQUETERÍA', 'ZAPATO'],
+                datasets: [
+                    {
+                        label: 'AGV',
+                        data: [975616, 1187365, 0],
+                        backgroundColor: '#FF5000', // AGV GXO Orange
+                        borderRadius: 6,
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    },
+                    {
+                        label: 'RBS',
+                        data: [719603, 1113377, 529797],
+                        backgroundColor: '#1e293b', // RBS Navy
+                        borderRadius: 6,
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    },
+                    {
+                        label: 'Manual',
+                        data: [234629, 280593, 192288],
+                        backgroundColor: '#94a3b8', // Manual Gray
+                        borderRadius: 6,
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1e293b',
+                        titleFont: { family: 'Montserrat', size: 12, weight: 'bold' },
+                        bodyFont: { family: 'Montserrat', size: 11 },
+                        padding: 12,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function (context) {
+                                return context.dataset.label + ': ' + context.formattedValue;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Montserrat', weight: '800', size: 11 }, color: '#1e293b' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f1f5f9', drawBorder: false },
+                        ticks: {
+                            font: { family: 'Montserrat', weight: '700', size: 10 },
+                            color: '#94a3b8',
+                            callback: function (value) {
+                                return (value / 1000000).toFixed(1) + 'M';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="global.js"></script>
+</body>
+
+</html>

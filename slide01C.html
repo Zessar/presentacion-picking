@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard II - Ranking de Zonas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 56px;
+            /* Tighter padding */
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .pill-navy {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 20px;
+            /* Reduced gap */
+            flex: 1;
+            margin-top: 16px;
+            /* Tighter top margin */
+            align-items: stretch;
+            max-height: 580px;
+            /* Explicit height cap */
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            /* Smaller radius */
+            padding: 1.25rem;
+            /* Reduced padding */
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 1rem;
+            /* Very compact item padding */
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            border-left: 5px solid transparent;
+        }
+
+        .best-accent {
+            border-left-color: #FF5000;
+        }
+
+        .worst-accent {
+            border-left-color: #94a3b8;
+        }
+
+        .val-num {
+            font-size: 1.4rem;
+            /* Smaller numbers */
+            font-weight: 900;
+        }
+
+        .best-color {
+            color: #FF5000;
+        }
+
+        .worst-color {
+            color: #64748b;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+
+        <header>
+            <div class="flex items-center gap-4 mb-2">
+                <span class="pill-navy uppercase">DASHBOARD 02</span>
+                <span class="text-gray-900 font-extrabold text-[13px] tracking-tight uppercase">ANÁLISIS DE
+                    PRODUCTIVIDAD POR ZONA</span>
+            </div>
+            <h1 class="text-4xl font-black text-gray-900 tracking-tight leading-none">Comparativa de Rendimiento</h1>
+        </header>
+
+        <div class="content-grid">
+            <!-- Left: Comparison Chart -->
+            <div class="card">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 class="text-lg font-black text-gray-900">Suelo vs RBS por Planta</h3>
+                        <p class="text-xs text-gray-500 font-medium">Productividad (B/H) en Zonas 0, 1, 2 y 3</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex items-center gap-2">
+                            <span class="legend-dot" style="background-color: #94a3b8;"></span>
+                            <span class="text-[10px] font-bold text-gray-700 uppercase">Manual</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="legend-dot" style="background-color: #1e293b;"></span>
+                            <span class="text-[10px] font-bold text-gray-700 uppercase">RBS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 relative">
+                    <canvas id="zoneChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Right: Ranking -->
+            <div class="flex flex-col gap-4">
+                <div class="card flex-1">
+                    <h2 class="text-sm font-black text-gray-900 mb-4 uppercase tracking-widest flex items-center gap-2">
+                        Top 3 Eficientes (B/H)
+                    </h2>
+                    <div class="ranking-item best-accent">
+                        <span class="text-lg font-extrabold text-gray-900">Zona 5100</span>
+                        <span class="val-num best-color">159.9</span>
+                    </div>
+                    <div class="ranking-item best-accent">
+                        <span class="text-lg font-extrabold text-gray-900">Zona 3000</span>
+                        <span class="val-num best-color">142.7</span>
+                    </div>
+                    <div class="ranking-item best-accent">
+                        <span class="text-lg font-extrabold text-gray-900">Zona 4100</span>
+                        <span class="val-num best-color">140.6</span>
+                    </div>
+                </div>
+
+                <div class="card flex-1">
+                    <h2 class="text-sm font-black text-gray-900 mb-4 uppercase tracking-widest flex items-center gap-2">
+                        Menor Rendimiento (B/H)
+                    </h2>
+                    <div class="ranking-item worst-accent">
+                        <span class="text-lg font-extrabold text-gray-900">Zona 5000</span>
+                        <span class="val-num worst-color">108.4</span>
+                    </div>
+                    <div class="ranking-item worst-accent">
+                        <span class="text-lg font-extrabold text-gray-900">Zona 1100</span>
+                        <span class="val-num worst-color">110.0</span>
+                    </div>
+                    <div class="ranking-item worst-accent">
+                        <span class="text-lg font-extrabold text-gray-900">Zona 1200</span>
+                        <span class="val-num worst-color">112.5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('zoneChart').getContext('2d');
+
+        // Data from Por_Zona.csv
+        // Manual (Picking): Zona 0(49.85), 1(54.63), 2(50.51), 3(54.73)
+        // RBS Picking: Zona 0(81.79), 1(76.97), 2(67.57), 3(77.92)
+
+        // Horizontal Bar Chart
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['PLANTA 0', 'PLANTA 1', 'PLANTA 2', 'PLANTA 3'],
+                datasets: [
+                    {
+                        label: 'Manual',
+                        data: [49.9, 54.6, 50.5, 54.7],
+                        backgroundColor: '#64748b',
+                        borderRadius: 4,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.8
+                    },
+                    {
+                        label: 'RBS',
+                        data: [81.8, 77.0, 67.6, 77.9],
+                        backgroundColor: '#1e293b',
+                        borderRadius: 4,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.8
+                    }
+                ]
+            },
+            plugins: [{
+                id: 'customLabels',
+                afterDatasetsDraw(chart) {
+                    const { ctx } = chart;
+                    ctx.save();
+                    ctx.font = 'bold 11px Montserrat';
+                    ctx.fillStyle = '#ffffff';
+                    ctx.textAlign = 'right';
+                    ctx.textBaseline = 'middle';
+
+                    chart.data.datasets.forEach((dataset, i) => {
+                        const meta = chart.getDatasetMeta(i);
+                        meta.data.forEach((bar, index) => {
+                            const value = dataset.data[index];
+                            // Draw value inside bar if enough space, else outside
+                            if (bar.width > 30) {
+                                ctx.fillText(value.toFixed(1), bar.x - 6, bar.y);
+                            } else {
+                                ctx.fillStyle = '#1e293b';
+                                ctx.textAlign = 'left';
+                                ctx.fillText(value.toFixed(1), bar.x + 6, bar.y);
+                                ctx.fillStyle = '#ffffff'; // Reset
+                                ctx.textAlign = 'right';
+                            }
+                        });
+                    });
+                    ctx.restore();
+                }
+            }],
+            options: {
+                indexAxis: 'y', // Horizontal bars
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        enabled: false // Using static labels instead
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: '#f1f5f9', drawBorder: false },
+                        ticks: { font: { family: 'Montserrat', weight: '700', size: 10 }, color: '#94a3b8' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Montserrat', weight: '800', size: 11 }, color: '#1e293b' }
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="global.js"></script>
+</body>
+
+</html>

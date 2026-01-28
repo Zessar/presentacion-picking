@@ -1,0 +1,23 @@
+# Git Ignore for Presentation Picking
+
+# Data files (Extracted from Excel)
+extracted_data/
+*.csv
+*.xlsx
+*.xls
+
+# Temporary/Cache files
+.gemini/
+brain/
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+
+# Presentation App (React)
+presentation-app/node_modules/
+presentation-app/dist/
+presentation-app/.env
+
+# PowerShell artifacts
+*.log

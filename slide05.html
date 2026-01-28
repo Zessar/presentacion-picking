@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Mejora 2 - Limitar prendas por ubicación</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .gxo-orange-bg {
+            background-color: #FF5000;
+        }
+
+        .border-gxo-orange {
+            border-color: #FF5000;
+        }
+
+        .shadow-soft {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        .action-card {
+            transition: transform 0.2s ease;
+        }
+
+        .kpi-card {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            /* Simulating gradient with flat fallback logic, purely decorative here as simple bg */
+            background-color: #111827;
+        }
+
+        .step-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #FF5000;
+            position: absolute;
+            right: 1rem;
+            top: 0.5rem;
+            opacity: 0.15;
+        }
+    </style>
+</head>
+
+<body style="">
+    <div class="slide-container p-12">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+        <!-- Header -->
+        <div class="relative z-10 flex justify-between items-center mb-10 border-b border-gray-200 pb-4">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <span
+                        class="bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mejora
+                        02</span>
+                    <span class="text-gray-400 font-medium text-sm tracking-wide">PICKING SUELO</span>
+                </div>
+                <h1 class="text-4xl font-extrabold text-gray-900">Limitar Prendas por Ubicación</h1>
+                <p class="text-gray-500 text-lg mt-1">Estrategia de densidad y eficiencia en búsqueda</p>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="flex flex-1 gap-8">
+            <!-- Left Column: Actions & Benefits (2/3 width) -->
+            <div class="w-2/3 flex flex-col gap-6">
+                <!-- Actions Section -->
+                <div class="bg-white">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <span
+                            class="w-8 h-8 rounded bg-gray-100 text-gray-600 flex items-center justify-center mr-3 text-sm"><i
+                                class="fas fa-list-check"></i></span>
+                        Acciones Clave
+                    </h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="action-card bg-gray-50 p-5 rounded-lg border-l-4 border-gxo-orange relative">
+                            <span class="step-number">01</span>
+                            <h3 class="font-bold text-gray-900 mb-2">Definir Máximos</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">Establecer límites estrictos por ubicación
+                                según rotación y familia de producto.</p>
+                        </div>
+                        <div class="action-card bg-gray-50 p-5 rounded-lg border-l-4 border-gray-300 relative">
+                            <span class="step-number">02</span>
+                            <h3 class="font-bold text-gray-900 mb-2">Compactación Dinámica</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">Evitar huecos muertos, ubicar mediante una
+                                orden de trabajo.</p>
+                        </div>
+                        <div
+                            class="action-card bg-gray-50 p-5 rounded-lg border-l-4 border-gray-300 relative col-span-2">
+                            <span class="step-number">03</span>
+                            <h3 class="font-bold text-gray-900 mb-2">Regla 20-25 vs 50-60</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">Implementar objetivo de <span
+                                    class="font-bold text-gray-900">20-25 prendas</span> por ubicación frente a las
+                                50-60 actuales para reducir drásticamente el tiempo de búsqueda unitaria (comparar con
+                                los ajustes actuales).</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Benefits Section -->
+                <div class="bg-white flex-1 mt-2">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center"
+                        style="position: relative; transform: translate(-0.974949px, -16.5741px);">
+                        <span
+                            class="w-8 h-8 rounded bg-gray-100 text-gray-600 flex items-center justify-center mr-3 text-sm"><i
+                                class="fas fa-thumbs-up"></i></span>
+                        Beneficios Directos
+                    </h2>
+                    <div class="flex gap-4">
+                        <div class="flex-1 bg-green-50 p-4 rounded border border-green-100 flex items-start"
+                            style="position: relative; transform: translate(-0.974949px, -17.5491px);">
+                            <i data-lucide="clock" class="text-green-600 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-bold text-green-900 text-sm">Menor Tiempo Búsqueda</h4>
+                                <p class="text-green-800 text-xs mt-1">Más fácil encontrar 1 entre 20 que 1 entre 60.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex-1 bg-blue-50 p-4 rounded border border-blue-100 flex items-start"
+                            style="position: relative; transform: translate(-1.9499px, -17.5491px);">
+                            <i data-lucide="box" class="text-blue-600 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-bold text-blue-900 text-sm">Densidad Útil</h4>
+                                <p class="text-blue-800 text-xs mt-1">Eliminación de ubicaciones vacías innecesarias.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex-1 bg-orange-50 p-4 rounded border border-orange-100 flex items-start"
+                            style="position: relative; transform: translate(-2.92485px, -16.5741px);">
+                            <i data-lucide="package-check" class="text-orange-600 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-bold text-orange-900 text-sm">Menos Errores</h4>
+                                <p class="text-orange-800 text-xs mt-1">Mayor precisión al seleccionar la prenda
+                                    correcta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: KPIs (1/3 width) -->
+            <div class="w-1/3 flex flex-col h-full">
+                <div class="kpi-card text-white p-4 rounded-xl shadow-xl flex flex-col h-full relative overflow-hidden">
+                    <!-- Decor element -->
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-bl-full pointer-events-none">
+                    </div>
+                    <h3
+                        class="text-sm font-bold uppercase tracking-widest mb-2 border-b border-gray-700 pb-2 text-gray-300">
+                        KPIs de
+                        Impacto</h3>
+                    <div class="flex flex-col justify-between flex-1 gap-1">
+                        <!-- KPI 1 -->
+                        <div class="group">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-gray-400 text-sm font-medium">Tiempo de Localización</span>
+                                <i data-lucide="timer" class="gxo-orange-text opacity-80"></i>
+                            </div>
+                            <div
+                                class="text-4xl font-extrabold text-white mb-1 group-hover:text-gxo-orange transition-colors">
+                                <i data-lucide="arrow-down"
+                                    class="text-lg align-middle mr-1 text-green-500 w-5 h-5 inline-block"></i>45%
+                            </div>
+                            <div class="w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-green-500 h-full w-2/3"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Reducción estimada por pick</p>
+                        </div>
+                        <!-- KPI 2 -->
+                        <div class="group">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-gray-400 text-sm font-medium">Ocupación Efectiva</span>
+                                <i data-lucide="warehouse" class="gxo-orange-text opacity-80"></i>
+                            </div>
+                            <div
+                                class="text-3xl font-extrabold text-white mb-0.5 group-hover:text-gxo-orange transition-colors">
+                                <i data-lucide="arrow-up"
+                                    class="text-lg align-middle mr-1 text-green-500 w-5 h-5 inline-block"></i>20%
+                            </div>
+                            <div class="w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-blue-500 h-full w-4/5"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Target de saturación de huecos</p>
+                        </div>
+                        <!-- KPI 3 -->
+                        <div class="group">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-gray-400 text-sm font-medium">Errores de Picking</span>
+                                <i data-lucide="clipboard-check" class="gxo-orange-text opacity-80"></i>
+                            </div>
+                            <div
+                                class="text-3xl font-extrabold text-white mb-0.5 group-hover:text-gxo-orange transition-colors">
+                                <i data-lucide="arrow-down"
+                                    class="text-lg align-middle mr-1 text-green-500 w-5 h-5 inline-block"></i>15%
+                            </div>
+                            <div class="w-full bg-gray-700 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-purple-500 h-full w-1/4"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Disminución de errores de calidad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

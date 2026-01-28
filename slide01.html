@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Portada GXO</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image: url('./Imagenes/Captura\ de\ pantalla\ 2026-01-26\ 112218.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Optional overlay to ensure text readability if needed, though this bg is white on left */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            width: 55%;
+            /* Occupy left side */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 6rem;
+            /* Align with visual logo margin */
+            padding-right: 2rem;
+        }
+
+        .brand-bar {
+            width: 80px;
+            height: 6px;
+            background-color: #FF5000;
+            margin-bottom: 2rem;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <!-- Background Layer -->
+        <div class="bg-image"></div>
+
+        <!-- Content Layer -->
+        <div class="content-wrapper">
+            <!-- Logo -->
+
+            <!-- Main Title -->
+            <h1 class="text-6xl font-extrabold text-gray-900 leading-tight mb-4 animate-fade-in">
+                Optimización de <br />
+                <span style="color: #FF5000;">Procesos de Picking</span>
+            </h1>
+            <!-- Subtitle -->
+            <p class="text-2xl text-gray-600 font-medium mb-8 leading-snug animate-fade-in"
+                style="animation-delay: 0.2s; max-width: 90%;">
+                Plan de mejoras en picking de suelo y AGV
+            </p>
+            <!-- Date/Meta -->
+            <div class="mt-8 pt-8 border-t border-gray-200 animate-fade-in" style="animation-delay: 0.4s; width: 80%;">
+                <p class="text-lg text-gray-500 font-semibold tracking-wide">
+                    27 de Enero de 2026
+                </p>
+                <p class="text-sm text-gray-400 mt-1">
+                    GXO Logistics, Inc.
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

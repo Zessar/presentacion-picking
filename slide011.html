@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>AGV - % Puestos Exclusivos</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .content-overlay {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .step-content {
+            background-color: white;
+            /* Fully opaque */
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #FF5000;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .step-number-badge {
+            width: 44px;
+            height: 44px;
+            background-color: white;
+            border: 2px solid #FF5000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #1f2937;
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-content:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Custom Slider visual for Step 2 */
+        .slider-track {
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .slider-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 60%;
+            background-color: #FF5000;
+            border-radius: 4px;
+        }
+
+        .slider-thumb {
+            position: absolute;
+            left: 60%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border: 3px solid #FF5000;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .step-badge {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 3px solid white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body style="">
+    <div class="slide-container">
+        <!-- Background Image -->
+        <img alt="Fondo 3 Pasos" class="bg-image" src="./Imagenes/Captura de pantalla 2026-01-26 112307.png"
+            data-height-listener-added="true">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+        <div class="content-overlay p-12">
+            <!-- Header -->
+            <div class="relative z-10 flex justify-between items-center mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span
+                            class="bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mejora
+                            AGV 02</span>
+                        <span class="text-gray-500 font-medium text-sm tracking-wide uppercase">Gestión de
+                            Capacidad</span>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Asignación Dinámica (% Exclusivos)</h1>
+                    <p class="text-lg text-gray-600 mt-1">Control flexible de recursos para priorizar urgencias sin
+                        detener el flujo general</p>
+                </div>
+            </div>
+            <!-- Content Grid - Aligned to fit below the background visual elements -->
+            <!-- Using margin top to push content down below the "steps" visual in the bg image -->
+            <!-- Content Grid shifted up -->
+            <div class="flex-1 grid grid-cols-3 gap-8 mt-24 mb-8">
+                <!-- Step 1: Configuration -->
+                <div class="flex flex-col relative">
+                    <div class="step-number-badge">1</div>
+                    <div class="step-content">
+
+                        <div class="flex items-center gap-3 mb-4 mt-2">
+                            <i data-lucide="settings" class="text-gray-700"></i>
+                            <h3 class="text-xl font-bold text-gray-900">Configuración</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                            Definición de un porcentaje de puestos reservado únicamente para pedidos exclusivos durante
+                            la asignación masiva.
+                        </p>
+
+                        <!-- Visual Simulation: 6 Squares -->
+                        <div
+                            class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex flex-col items-center mt-auto">
+                            <div class="flex gap-2 mb-3">
+                                <div class="w-8 h-8 bg-green-500 rounded-md shadow-sm" title="Exclusivo"></div>
+                                <div class="w-8 h-8 bg-green-500 rounded-md shadow-sm" title="Exclusivo"></div>
+                                <div class="w-8 h-8 bg-blue-500 rounded-md shadow-sm" title="Normal"></div>
+                                <div class="w-8 h-8 bg-blue-500 rounded-md shadow-sm" title="Normal"></div>
+                                <div class="w-8 h-8 bg-blue-500 rounded-md shadow-sm" title="Normal"></div>
+                                <div class="w-8 h-8 bg-blue-500 rounded-md shadow-sm" title="Normal"></div>
+                            </div>
+                            <div class="flex gap-6 text-[10px] font-bold uppercase tracking-wider">
+                                <span class="flex items-center gap-1.5 text-green-600">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full"></span> Exclusivo
+                                </span>
+                                <span class="flex items-center gap-1.5 text-blue-600">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full"></span> Normal
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 2: Control -->
+                <div class="flex flex-col relative">
+                    <div class="step-number-badge">2</div>
+                    <div class="step-content">
+
+                        <div class="flex items-center gap-3 mb-4 mt-2">
+                            <i data-lucide="sliders-horizontal" class="gxo-orange-text"></i>
+                            <h3 class="text-xl font-bold text-gray-900">Ajuste en Caliente</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-2">
+                            Capacidad de variar el % reservado mientras la asignación se está ejecutando, adaptándose a
+                            picos de demanda.
+                        </p>
+                        <!-- Interactive Slider Visualization -->
+                        <div class="mt-auto bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <div class="flex justify-between text-xs font-bold text-gray-500 mb-1">
+                                <span>0%</span>
+                                <span class="text-gxo-orange">60% (Set Point)</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="slider-track">
+                                <div class="slider-fill"></div>
+                                <div class="slider-thumb"></div>
+                            </div>
+                            <p class="text-xs text-center text-gray-400 mt-2">Control Operativo</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3: KPIs -->
+                <div class="flex flex-col relative">
+                    <div class="step-number-badge">3</div>
+                    <div class="step-content">
+
+                        <div class="flex items-center gap-3 mb-4 mt-2">
+                            <i data-lucide="line-chart" class="text-green-600"></i>
+                            <h3 class="text-xl font-bold text-gray-900">KPIs &amp; Resultados</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Monitorización del impacto en el flujo de trabajo y cumplimiento de SLAs críticos.
+                        </p>
+                        <div class="space-y-3 mt-auto">
+                            <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+                                <span class="text-xs font-bold text-gray-500 uppercase">Utilización Puestos</span>
+                                <span class="text-sm font-bold text-gray-900">92%</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+                                <span class="text-xs font-bold text-gray-500 uppercase">Cola Exclusivos</span>
+                                <span class="text-sm font-bold text-green-600 bg-green-100 px-2 rounded-full"><i
+                                        data-lucide="arrow-down" class="mr-1 inline-block w-4 h-4"></i>Bajo</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-gray-500 uppercase">Throughput Total</span>
+                                <span class="text-sm font-bold text-gray-900">+15%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

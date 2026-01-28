@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Separador Picking Suelo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #111111;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #111111;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .gxo-orange-bg {
+            background-color: #FF5000;
+        }
+
+        .gxo-orange-border {
+            border-color: #FF5000;
+        }
+
+        /* Geometric Elements */
+        .diagonal-line {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: rotate(-45deg);
+            transform-origin: center;
+        }
+
+        .line-1 {
+            width: 200%;
+            height: 200px;
+            top: -50%;
+            left: -50%;
+        }
+
+        .line-2 {
+            width: 200%;
+            height: 50px;
+            bottom: 0%;
+            right: -50%;
+        }
+
+        /* Card Styling */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .kpi-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #FF5000;
+            background-color: rgba(255, 80, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body style="">
+    <div class="slide-container p-16">
+        <!-- Background Elements -->
+        <div class="diagonal-line line-1"></div>
+        <div class="diagonal-line line-2"></div>
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+        <!-- Section Number -->
+        <div class="absolute top-10 left-12 text-9xl font-black text-white opacity-5 select-none z-0">
+            01
+        </div>
+        <!-- Main Layout -->
+        <div class="relative z-10 flex h-full pt-8">
+            <!-- Left Column: Title & Context -->
+            <div class="w-2/5 flex flex-col justify-center pr-12 border-r border-gray-700">
+                <div class="mb-2">
+                    <span
+                        class="inline-block py-1 px-3 rounded-full bg-gray-800 border border-gray-600 text-xs font-bold tracking-widest uppercase text-gray-300 mb-4">
+                        Sección 01
+                    </span>
+                </div>
+                <h1 class="text-6xl font-extrabold leading-tight mb-6">
+                    Picking <br>
+                    <span class="gxo-orange-text">Suelo</span>
+                </h1>
+                <p class="text-xl text-gray-400 font-light mb-8">
+                    Análisis de la situación actual y definición de objetivos estratégicos para la optimización
+                    operativa.
+                </p>
+                <div class="mt-auto">
+                    <p class="text-sm text-gray-500 uppercase tracking-widest font-bold mb-3">Enfoque Principal</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded">Eficiencia</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded">Ergonomía</span>
+                        <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded">Organización</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Details -->
+            <div class="w-3/5 pl-12 flex flex-col justify-center gap-8">
+                <!-- Pain Points -->
+                <div class="glass-card p-8 rounded-lg relative overflow-hidden">
+                    <div class="absolute left-0 top-0 bottom-0 w-1.5 gxo-orange-bg"></div>
+                    <div class="flex items-start mb-5">
+                        <div
+                            class="w-12 h-12 rounded-full bg-red-900 bg-opacity-40 flex items-center justify-center text-red-500 mr-4 flex-shrink-0 border border-red-500 border-opacity-30">
+                            <i data-lucide="triangle" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Inconvenientes Detectados</h3>
+                            <p class="text-base text-gray-400">Ineficiencias actuales en el proceso</p>
+                        </div>
+                    </div>
+                    <ul class="text-gray-200 space-y-3 text-base ml-12">
+                        <li class="flex items-start"><i data-lucide="arrow-right"
+                                class="text-red-500 mt-1 mr-2 w-4 h-4 flex-shrink-0"></i><span class="flex-1">Largos
+                                desplazamientos y
+                                cambios de planta innecesarios.</span></li>
+                        <li class="flex items-start"><i data-lucide="arrow-right"
+                                class="text-red-500 mt-1 mr-2 w-4 h-4 flex-shrink-0"></i><span
+                                class="flex-1">Ubicaciones
+                                sobredimensionadas y alta densidad.</span></li>
+                        <li class="flex items-start"><i data-lucide="arrow-right"
+                                class="text-red-500 mt-1 mr-2 w-4 h-4 flex-shrink-0"></i><span
+                                class="flex-1">Desorientación del
+                                personal (fatiga por falta de señalización).</span>
+                        </li>
+                        <li class="flex items-start"><i data-lucide="arrow-right"
+                                class="text-red-500 mt-1 mr-2 w-4 h-4 flex-shrink-0"></i><span class="flex-1">Mezcla
+                                ineficiente de
+                                familias (F3B).</span></li>
+                    </ul>
+                </div>
+                <!-- Objectives & KPIs -->
+                <div class="flex gap-6">
+                    <div class="flex-1 glass-card p-8 rounded-lg relative">
+                        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-green-500"></div>
+                        <h3 class="text-2xl font-bold text-white mb-3 flex items-center">
+                            <i data-lucide="target" class="text-green-500 mr-3 w-6 h-6"></i> Objetivos
+                        </h3>
+                        <p class="text-base text-gray-300 leading-relaxed">
+                            Reducir tiempos de búsqueda y recorrido, aumentar la precisión del inventario y mejorar el
+                            flujo continuo de operaciones.
+                        </p>
+                    </div>
+                    <!-- KPI Stats -->
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

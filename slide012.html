@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AGV - Pausar y Reanudar Órdenes</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            /* Split layout */
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .gxo-orange-bg {
+            background-color: #FF5000;
+        }
+
+        .content-side {
+            width: 50%;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: white;
+            z-index: 10;
+        }
+
+        .image-side {
+            width: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff7ed;
+            /* orange-50 */
+            color: #FF5000;
+            font-size: 1.25rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-tag {
+            background-color: #f3f4f6;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #4b5563;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Gradient replacement for export compatibility */
+        .overlay-gradient {
+            background-color: rgba(0, 0, 0, 0.6);
+            height: 50%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <!-- Logo -->
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo logo-white">
+        <!-- Content Side (Left) -->
+        <div class="content-side relative">
+            <!-- Header Tag -->
+            <div class="absolute top-12 left-16 flex items-center gap-3">
+                <span class="bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mejora
+                    AGV 03</span>
+                <span class="text-gray-400 font-medium text-sm tracking-wide">PICKING AGV</span>
+            </div>
+            <!-- Main Content -->
+            <div class="mt-8">
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-2 leading-tight">
+                    Pausar y Reanudar <br />Órdenes Asignadas
+                </h1>
+                <p class="text-lg text-gray-500 mb-8 leading-relaxed">
+                    Flexibilidad dinámica para gestionar prioridades cambiantes sin perder el trabajo de asignación
+                    realizado.
+                </p>
+                <!-- Action List -->
+                <div class="space-y-6 mb-8">
+                    <div class="flex items-start">
+                        <div class="feature-icon">
+                            <i data-lucide="circle-pause"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg">Caso de Uso: Día 11 vs. Día 9</h3>
+                            <p class="text-gray-600 text-sm mt-1 leading-relaxed">
+                                Si se está procesando el día 11 y entra prioridad del día 9: pausar día 11, ejecutar día
+                                9 completo, y reanudar día 11.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="feature-icon">
+                            <i data-lucide="history"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg">Sin Re-procesamiento</h3>
+                            <p class="text-gray-600 text-sm mt-1 leading-relaxed">
+                                Evita perder tiempo volviendo a calcular asignaciones. La orden pausada se reanuda
+                                exactamente donde se dejó.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="feature-icon">
+                            <i data-lucide="shuffle"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg">Reasignación Dinámica</h3>
+                            <p class="text-gray-600 text-sm mt-1 leading-relaxed">
+                                Al reanudar, permite cambiar el tramo de puestos o reducir la cantidad de recursos
+                                asignados según disponibilidad.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Benefits Section -->
+                <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Impacto Operativo</p>
+                    <div class="flex flex-wrap">
+                        <div class="benefit-tag">
+                            <i data-lucide="gauge" class="text-green-500 mr-2"></i> Mayor Dinamismo
+                        </div>
+                        <div class="benefit-tag">
+                            <i data-lucide="clock" class="text-green-500 mr-2"></i> Ahorro Tiempo Cálculo
+                        </div>
+                        <div class="benefit-tag">
+                            <i data-lucide="sliders" class="text-gxo-orange mr-2"></i> Control Total
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Image Side (Right) -->
+        <div class="image-side">
+            <img alt="Pasarela AGV en almacén" class="image-cover" src="./Imagenes/1000005613.jpg" />
+            <!-- Overlay Info -->
+            <div class="overlay-gradient"></div>
+            <div class="absolute bottom-8 left-8 right-8 text-white z-20">
+                <div class="inline-block bg-gxo-orange text-white text-xs font-bold px-3 py-1 mb-2">
+                    ÁREA AGV
+                </div>
+                <p class="text-sm font-medium text-gray-200 leading-snug drop-shadow-md">
+                    Vista de las pasarelas y zonas de operación AGV donde la gestión dinámica de colas es crítica para
+                    el flujo continuo.
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

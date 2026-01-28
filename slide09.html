@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Separador Picking AGV</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #111111;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #111111;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('./Imagenes/Imagen1.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25;
+            /* Reduced opacity to maintain text legibility */
+            z-index: 0;
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .gxo-orange-bg {
+            background-color: #FF5000;
+        }
+
+        .gxo-orange-border {
+            border-color: #FF5000;
+        }
+
+        /* Geometric Elements */
+        .diagonal-line {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: rotate(-45deg);
+            transform-origin: center;
+            z-index: 1;
+        }
+
+        .line-1 {
+            width: 200%;
+            height: 200px;
+            top: -50%;
+            left: -50%;
+        }
+
+        .line-2 {
+            width: 200%;
+            height: 50px;
+            bottom: 0%;
+            right: -50%;
+        }
+
+        /* Card Styling */
+        .glass-card {
+            background-color: rgba(20, 20, 20, 0.7);
+            /* Slightly darker for better contrast over image */
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo logo-white">
+        <!-- Main Content Wrapper with Padding -->
+        <div class="p-16 flex-1 flex flex-col pt-24">
+            <!-- Background Image -->
+            <div class="bg-image"></div>
+            <!-- Background Elements -->
+            <div class="diagonal-line line-1"></div>
+            <div class="diagonal-line line-2"></div>
+            <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo logo-white">
+            <!-- Section Number -->
+            <div class="absolute top-10 left-12 text-9xl font-black text-white opacity-10 select-none z-0">
+                02
+            </div>
+            <!-- Main Layout -->
+            <div class="relative z-10 flex h-full pt-8">
+                <!-- Left Column: Title & Context -->
+                <div class="w-2/5 flex flex-col justify-center pr-12 border-r border-gray-700 border-opacity-50">
+                    <div class="mb-2">
+                        <span
+                            class="inline-block py-1 px-3 rounded-full bg-gray-900 bg-opacity-80 border border-gray-600 text-xs font-bold tracking-widest uppercase text-gray-300 mb-4">
+                            Sección 02
+                        </span>
+                    </div>
+                    <h1 class="text-6xl font-extrabold leading-tight mb-6">
+                        Picking <br />
+                        <span class="gxo-orange-text">AGV</span>
+                    </h1>
+                    <p class="text-xl text-gray-200 font-light mb-8 drop-shadow-md">
+                        Optimización inteligente de flujos automatizados para maximizar el rendimiento.
+                    </p>
+                    <div class="mt-auto">
+                        <p class="text-sm text-gray-400 uppercase tracking-widest font-bold mb-3">Enfoque Principal</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-gray-900 bg-opacity-80 text-gray-300 text-sm rounded border border-gray-700">Automatización</span>
+                            <span
+                                class="px-3 py-1 bg-gray-900 bg-opacity-80 text-gray-300 text-sm rounded border border-gray-700">Priorización</span>
+                            <span
+                                class="px-3 py-1 bg-gray-900 bg-opacity-80 text-gray-300 text-sm rounded border border-gray-700">Dinamismo</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: Details -->
+                <div class="w-3/5 pl-12 flex flex-col justify-center gap-8">
+                    <!-- Meta Goal -->
+                    <div class="glass-card p-6 rounded-lg relative overflow-hidden">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 gxo-orange-bg"></div>
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-orange-500 mr-4 flex-shrink-0 border border-gray-700">
+                                <i data-lucide="target"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-1">Objetivo Estratégico</h3>
+                                <p class="text-sm text-gray-400">Meta principal de la sección</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-200 text-lg font-medium leading-relaxed ml-14">
+                            "Desacoplar el rendimiento del picking de suelo de la velocidad de los AGV y asegurar el
+                            cumplimiento estricto de los SLAs mediante gestión prioritaria."
+                        </p>
+                    </div>
+                    <!-- Improvement Levers -->
+                    <div class="glass-card p-6 rounded-lg relative">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center border-b border-gray-700 pb-2">
+                            <i data-lucide="sliders-horizontal" class="text-gray-400 mr-3"></i> Palancas de Mejora
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex items-start">
+                                <i data-lucide="shield-check" class="text-green-500 mt-1 mr-3 w-4 h-4"></i>
+                                <p class="text-sm text-gray-300">Priorización absoluta de exclusivos.</p>
+                            </div>
+                            <div class="flex items-start">
+                                <i data-lucide="shield-check" class="text-green-500 mt-1 mr-3 w-4 h-4"></i>
+                                <p class="text-sm text-gray-300">% de puestos dedicados ajustables.</p>
+                            </div>
+                            <div class="flex items-start">
+                                <i data-lucide="shield-check" class="text-green-500 mt-1 mr-3 w-4 h-4"></i>
+                                <p class="text-sm text-gray-300">Pausado dinámico de órdenes.</p>
+                            </div>
+                            <div class="flex items-start">
+                                <i data-lucide="shield-check" class="text-green-500 mt-1 mr-3 w-4 h-4"></i>
+                                <p class="text-sm text-gray-300">Optimización de retorno de racks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="global.js"></script>
+</body>
+
+</html>

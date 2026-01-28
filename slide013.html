@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mejora AGV 4 - Comportamiento de Racks</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #000000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.4) contrast(1.1);
+        }
+
+        .overlay-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .gxo-orange-bg {
+            background-color: #FF5000;
+        }
+
+        .border-gxo-orange {
+            border-color: #FF5000;
+        }
+
+        .glass-panel {
+            background-color: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #FF5000;
+        }
+
+        .kpi-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .kpi-box:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: #FF5000;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background-color: rgba(255, 80, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF5000;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <!-- Background Image -->
+        <img alt="Estanterías AGV" class="bg-image" src="./Imagenes/1000005612.jpg" />
+        <!-- Overlay for better readability -->
+        <div class="absolute inset-0 bg-black opacity-40 z-0"></div>
+        <!-- Main Content -->
+        <div class="overlay-content p-12">
+            <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+            <!-- Header -->
+            <div class="relative z-10 flex justify-between items-center mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <span
+                            class="bg-gxo-orange text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mejora
+                            AGV 04</span>
+                        <span class="text-gray-300 font-medium text-sm tracking-wide uppercase">Optimización de
+                            Flota</span>
+                    </div>
+                    <h1 class="text-5xl font-extrabold text-white leading-tight mb-2">Comportamiento de Racks</h1>
+                    <p class="text-xl text-gray-200 font-light">Eliminación de Movimientos Improductivos "Vuelta a Casa"
+                    </p>
+                </div>
+            </div>
+            <!-- Content Grid -->
+            <div class="flex-1 flex gap-12 mt-4">
+                <!-- Left Column: Key Concepts -->
+                <div class="w-1/2 flex flex-col justify-center space-y-6">
+                    <!-- Concept 1 -->
+                    <div class="glass-panel p-6 rounded-r-lg">
+                        <div class="flex items-start">
+                            <div class="icon-box">
+                                <i data-lucide="route"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Problema: "Volver a Casa"</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed">Los racks retornan a su ubicación base
+                                    antes de recibir nuevas misiones cercanas, generando grandes pérdidas de tiempo en
+                                    trayectos vacíos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Concept 2 -->
+                    <div class="glass-panel p-6 rounded-r-lg">
+                        <div class="flex items-start">
+                            <div class="icon-box">
+                                <i data-lucide="network"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Acción: Multi-Stop y Proximidad</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed">Implementar lógica de emparejamiento
+                                    por proximidad y permitir paradas múltiples sin retorno obligatorio a base.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Concept 3 -->
+                    <div class="glass-panel p-6 rounded-r-lg">
+                        <div class="flex items-start">
+                            <div class="icon-box">
+                                <i data-lucide="zoom-in"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Análisis de Comportamiento</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed">Estudiar logs del sistema para
+                                    diferenciar si es restricción nativa del AGV o parámetro configurable ajustable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: KPIs & Visual Impact -->
+                <div class="w-1/2 flex flex-col justify-end pb-8">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold text-white mb-6 border-b border-gray-500 pb-2 inline-block">
+                            Métricas de Eficiencia</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- KPI 1 -->
+                            <div class="kpi-box p-5 rounded-lg">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-400 text-xs font-bold uppercase">Metros en Vacío</span>
+                                    <i data-lucide="map" class="text-gxo-orange"></i>
+                                </div>
+                                <p class="text-4xl font-black text-white mb-1">- 35%</p>
+                                <p class="text-xs text-gray-400">Reducción de recorrido sin carga</p>
+                            </div>
+                            <!-- KPI 2 -->
+                            <div class="kpi-box p-5 rounded-lg">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-400 text-xs font-bold uppercase">UPH AGV</span>
+                                    <i data-lucide="truck" class="text-gxo-orange"></i>
+                                </div>
+                                <p class="text-4xl font-black text-white mb-1">+ 15%</p>
+                                <p class="text-xs text-gray-400">Incremento de unidades por hora</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-black bg-opacity-60 p-4 rounded border border-gray-700">
+                        <p class="text-sm text-gray-300 italic">
+                            <i data-lucide="quote" class="text-gxo-orange mr-2 inline-block w-4 h-4"></i>
+                            "Optimizar la lógica de movimiento es tan efectivo como añadir más robots, pero con coste
+                            cero de hardware."
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div
+                class="relative z-10 mt-8 flex justify-between text-xs text-gray-400 font-medium border-t border-gray-100 pt-4">
+                <p>Confidential and Proprietary</p>
+                <p>© 2026 GXO Logistics, Inc.</p>
+            </div>
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

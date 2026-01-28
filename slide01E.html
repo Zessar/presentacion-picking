@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard IV - Rendimiento por Turno</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="branding.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding: 48px 64px;
+        }
+
+        .pill-gray {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+        }
+
+        .chart-main-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-top: 32px;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+
+        <header>
+            <div class="flex items-center gap-4 mb-3">
+                <span class="pill-gray uppercase">DASHBOARD 04</span>
+                <span class="text-gray-400 font-extrabold text-[15px] tracking-tight uppercase">ANÁLISIS COMPARATIVO DE
+                    TURNOS</span>
+            </div>
+            <h1 class="text-6xl font-black text-gray-900 tracking-tight leading-none mb-1">Productividad por Turno</h1>
+            <p class="text-gray-400 font-medium text-lg">Comparativa de eficiencia entre Mañana, Tarde y Noche</p>
+        </header>
+
+        <div class="chart-main-card">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex gap-8">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1 h-8 bg-gray-200 rounded-full"></span>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Picking Manual</p>
+                            <p class="text-lg font-bold text-gray-800">+ 58</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1 h-8 bg-gray-800 rounded-full"></span>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">RBS Picking</p>
+                            <p class="text-lg font-bold text-gray-800">+ 77</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1 h-8 bg-gray-800 rounded-full"></span>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">AGV Picking</p>
+                            <p class="text-lg font-bold text-gray-800">+124</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <span class="text-[10px] font-bold text-gray-400 uppercase"><span
+                            class="legend-dot bg-gray-200"></span>Mañana</span>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase"><span
+                            class="legend-dot bg-gray-400"></span>Tarde</span>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase"><span
+                            class="legend-dot bg-gray-800"></span>Noche</span>
+                </div>
+            </div>
+
+            <div class="flex-1 relative">
+                <canvas id="shiftChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('shiftChart').getContext('2d');
+
+        // Data from Por_Turno.csv
+        // Manual: M(53.03), T(58.49), N(46.93)
+        // RBS: M(77.02), T(74.57), N(77.43)
+        // AGV: M(119.24), T(121.84), N(124.38)
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['PICKING MANUAL', 'RBS PICKING', 'AGV PICKING'],
+                datasets: [
+                    {
+                        label: 'Mañana',
+                        data: [53.03, 77.02, 119.24],
+                        backgroundColor: '#e2e8f0', // Light Gray
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.8
+                    },
+                    {
+                        label: 'Tarde',
+                        data: [58.49, 74.57, 121.84],
+                        backgroundColor: '#94a3b8', // Medium Gray
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.8
+                    },
+                    {
+                        label: 'Noche',
+                        data: [46.93, 77.43, 124.38],
+                        backgroundColor: '#1e293b', // Dark Navy
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(30, 41, 59, 0.9)',
+                        padding: 12,
+                        titleFont: { family: 'Montserrat', size: 13 },
+                        bodyFont: { family: 'Montserrat', size: 12 }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 160,
+                        grid: { color: '#f8fafc' },
+                        ticks: { font: { family: 'Montserrat', weight: 'bold' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Montserrat', weight: '800', size: 11 } }
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="global.js"></script>
+</body>
+
+</html>

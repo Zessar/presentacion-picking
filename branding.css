@@ -1,0 +1,32 @@
+/* 
+   GXO Presentation Branding Styles
+   Ensures the logo is in the exact same spot across all slides.
+*/
+
+.logo-gxo {
+    position: absolute !important;
+    top: 48px !important;
+    right: 48px !important;
+    height: 35px !important;
+    width: auto !important;
+    z-index: 100 !important;
+    pointer-events: none;
+    /* Prevents interference with clicks */
+}
+
+/* White logo variant using CSS filters */
+.logo-white {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Optional header standardization if needed */
+.header-standard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(229, 231, 235, 1);
+    padding-bottom: 1rem;
+    position: relative;
+    z-index: 10;
+}

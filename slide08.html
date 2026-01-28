@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mejora 5 - Zona F3B</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .gxo-orange-bg {
+            background-color: #FF5000;
+        }
+
+        .bg-dark-blue {
+            background-color: #0f172a;
+        }
+
+        .border-gxo-orange {
+            border-color: #FF5000;
+        }
+
+        /* Layout specific styles */
+        .layout-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .layout-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .video-placeholder {
+            background-color: #111827;
+            border: 2px dashed #374151;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border: 3px solid #FF5000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF5000;
+            box-shadow: 0 4px 15px rgba(255, 80, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            background-color: #FF5000;
+            color: white;
+        }
+
+        .problem-tag {
+            background-color: rgba(220, 38, 38, 0.9);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+        }
+
+        .solution-tag {
+            background-color: rgba(16, 185, 129, 0.9);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+        }
+
+        /* Fullscreen Modal Styles */
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .fullscreen-overlay img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .layout-image-container {
+            cursor: zoom-in;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo">
+        <!-- Main Content Wrapper with Padding -->
+        <div class="p-12 flex-1 flex flex-col">
+            <!-- Header -->
+            <div class="relative z-10 flex justify-between items-center mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span
+                            class="bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mejora
+                            05</span>
+                        <span class="text-gray-500 font-medium text-sm tracking-wide uppercase">Picking Suelo</span>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-gray-900 leading-none">Zona F3B: Reconfiguración</h1>
+                    <p class="text-lg text-gray-500 mt-2 font-medium">Separación estratégica de Paquetería vs. Tempe</p>
+                </div>
+            </div>
+            <!-- Main Grid -->
+            <div class="flex-1 grid grid-cols-2 gap-8 h-full">
+                <!-- Left Column: Current Layout (Problem) -->
+                <div class="flex flex-col h-full">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                            <i data-lucide="map" class="text-red-500 mr-2"></i> Situación Actual
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded border border-red-100">Layout
+                            Ineficiente</span>
+                    </div>
+                    <div class="layout-image-container flex-1 mb-4 relative group" onclick="openFullscreenImg(this)">
+                        <div class="problem-tag">PRODUCTOS MEZCLADOS</div>
+                        <img alt="Layout actual Zona F3B" class="layout-image"
+                            src="./Imagenes/Captura de pantalla 2026-01-22 152958.png" />
+                        <!-- Overlay Info on Hover -->
+                        <div
+                            class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-95 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 border-t border-red-200">
+                            <p class="text-xs font-bold text-red-600 uppercase mb-1">Punto de Dolor (Clic para ampliar)
+                            </p>
+                            <p class="text-sm text-gray-700">La mezcla de "paquetería" y "tempe" en los mismos pasillos
+                                obliga a realizar recorridos transversales innecesarios.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        <h4 class="font-bold text-gray-900 text-sm mb-2">Impacto Negativo:</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start text-sm text-gray-600">
+                                <i data-lucide="x-circle" class="text-red-400 mt-1 mr-2 w-4 h-4"></i>
+                                <span class="flex-1">Aumento de metros recorridos por mezcla de familias.</span>
+                            </li>
+                            <li class="flex items-start text-sm text-gray-600">
+                                <i data-lucide="x-circle" class="text-red-400 mt-1 mr-2 w-4 h-4"></i>
+                                <span class="flex-1">Cruces de flujo que entorpecen la operación.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Right Column: Algorithm Video (Solution) -->
+                <div class="flex flex-col h-full">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                            <i data-lucide="cpu" class="text-green-600 mr-2"></i> Algoritmo de Mejora
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded border border-green-100">Simulación</span>
+                    </div>
+                    <div class="video-placeholder flex-1 mb-4 shadow-inner relative overflow-hidden bg-black"
+                        style="min-height: 300px;">
+                        <video id="myDemoVideo" class="absolute top-0 left-0 w-full h-full object-cover">
+                            <source src="./Imagenes/2026-01-22-Demostracion.mp4" type="video/mp4">
+                            Tu navegador no soporta video HTML5.
+                        </video>
+
+                        <div id="videoOverlay" onclick="playVideo()"
+                            class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center cursor-pointer z-50 transition-all hover:bg-opacity-40 group">
+
+                            <div class="play-button mb-4">
+                                <i data-lucide="play" fill="currentColor" class="w-8 h-8 ml-1"></i>
+                            </div>
+
+                            <div class="text-center px-6">
+                                <p class="text-white font-bold text-lg mb-1 drop-shadow-md">Análisis de Recorridos</p>
+                                <p class="text-gray-200 text-sm drop-shadow-md">Haz click para reproducir la simulación
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function playVideo() {
+                            var video = document.getElementById('myDemoVideo');
+                            var overlay = document.getElementById('videoOverlay');
+                            overlay.style.display = 'none';
+                            video.setAttribute('controls', 'true'); // Show controls when playing
+                            video.play();
+
+                            // Try to go fullscreen if supported
+                            if (video.requestFullscreen) {
+                                video.requestFullscreen();
+                            } else if (video.webkitRequestFullscreen) {
+                                video.webkitRequestFullscreen();
+                            } else if (video.msRequestFullscreen) {
+                                video.msRequestFullscreen();
+                            }
+                        }
+
+                        function openFullscreenImg(container) {
+                            const img = container.querySelector('img');
+                            const overlay = document.getElementById('imgFullscreenOverlay');
+                            const fullscreenImg = document.getElementById('fullscreenImg');
+                            fullscreenImg.src = img.src;
+                            overlay.style.display = 'flex';
+                        }
+
+                        function closeFullscreenImg() {
+                            document.getElementById('imgFullscreenOverlay').style.display = 'none';
+                        }
+                    </script>
+
+                    <!-- Image Fullscreen Overlay -->
+                    <div id="imgFullscreenOverlay" class="fullscreen-overlay" onclick="closeFullscreenImg()">
+                        <img id="fullscreenImg" src="" alt="Zoomed Layout">
+                        <div class="absolute top-8 right-8 text-white bg-black bg-opacity-50 p-2 rounded-full">
+                            <i data-lucide="x"></i>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-gray-50 p-4 rounded-lg border border-gray-200 border-l-4 border-gxo-orange shadow-sm">
+                        <h4 class="font-bold text-gray-900 text-sm mb-2">Acciones Propuestas:</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start text-sm text-gray-600">
+                                <i data-lucide="shield-check" class="text-green-500 mt-1 mr-2 w-4 h-4"></i>
+                                <span class="flex-1">Reconfigurar layout por familias (Slotting por afinidad).</span>
+                            </li>
+                            <li class="flex items-start text-sm text-gray-600">
+                                <i data-lucide="shield-check" class="text-green-500 mt-1 mr-2 w-4 h-4"></i>
+                                <span class="flex-1">Establecer rutas lógicas separadas para paquetería y tempe.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>

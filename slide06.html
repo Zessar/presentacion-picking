@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Mejora 3 - Re-etiquetado de posiciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="branding.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            /* Split layout */
+        }
+
+        .gxo-orange-text {
+            color: #FF5000;
+        }
+
+        .gxo-orange-bg {
+            background-color: #FF5000;
+        }
+
+        .content-side {
+            width: 50%;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: white;
+            z-index: 10;
+        }
+
+        .image-side {
+            width: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF5000;
+            margin-right: 1.25rem;
+            flex-shrink: 0;
+            border-bottom: 2px solid #FF5000;
+            border-radius: 0;
+        }
+
+        .benefit-tag {
+            background-color: transparent;
+            padding: 0.25rem 0.75rem 0.25rem 0;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #374151;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1.5rem;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid #e5e7eb;
+            padding-left: 0.75rem;
+        }
+    </style>
+</head>
+
+<body style="">
+    <div class="slide-container">
+        <img src="./img/logo-gxo.png" alt="GXO" class="logo-gxo logo-white">
+        <!-- Content Side (Left) -->
+        <div class="content-side relative">
+            <!-- Header Tag -->
+            <div class="absolute top-12 left-16 flex items-center gap-3">
+                <span class="bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mejora
+                    03</span>
+                <span class="text-gray-400 font-medium text-sm tracking-wide">PICKING SUELO</span>
+            </div>
+            <!-- Main Content -->
+            <div class="mt-8">
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-2 leading-tight">
+                    Re-etiquetado <br>de Posiciones
+                </h1>
+                <p class="text-lg text-gray-500 mb-8 leading-relaxed">
+                    Estandarización visual para eliminar errores de lectura y reducir la fatiga cognitiva del operario.
+                </p>
+                <!-- Action List -->
+                <div class="space-y-8 mb-10">
+                    <div class="flex items-center">
+                        <div class="feature-icon">
+                            <i data-lucide="file-text" stroke-width="1.5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-xl">Tipología</h3>
+                            <p class="text-gray-500 text-base mt-1">
+                                Estandarización de etiquetas existentes, unificando criterios con el sistema AGV.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <div class="feature-icon">
+                            <i data-lucide="palette" stroke-width="1.5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-xl">Codificación por Color</h3>
+                            <p class="text-gray-500 text-base mt-1">
+                                Orientación intuitiva rápida mediante zonificación cromática por pasillo.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Benefits Section -->
+                <div>
+                    <p
+                        class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 border-b border-gray-100 pb-2">
+                        Impacto Operativo</p>
+                    <div class="flex flex-wrap">
+                        <div class="benefit-tag">
+                            <i data-lucide="eye" class="text-gray-400 mr-2 w-4 h-4"></i> Menor Fatiga Visual
+                        </div>
+                        <div class="benefit-tag">
+                            <i data-lucide="shield-check" class="text-gray-400 mr-2 w-4 h-4"></i> Reducción Errores
+                        </div>
+                        <div class="benefit-tag">
+                            <i data-lucide="trending-up" class="text-gray-400 mr-2 w-4 h-4"></i> Mayor Velocidad
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Image Side (Right) -->
+        <div class="image-side">
+            <img alt="Pasillo de almacén con prendas colgadas" class="image-cover" src="./Imagenes/1000005614.jpg"
+                data-height-listener-added="true">
+            <!-- Overlay Info -->
+            <div
+                class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 h-1/2 pointer-events-none">
+            </div>
+            <div class="absolute bottom-8 left-8 right-8 text-white z-20">
+                <div class="inline-block bg-gxo-orange text-white text-xs font-bold px-3 py-1 mb-2">
+                    SITUACIÓN ACTUAL
+                </div>
+                <p class="text-sm font-medium text-gray-200 leading-snug drop-shadow-md">
+                    Imagen del pasillo actual mostrando la densidad y visibilidad de las etiquetas existentes. El
+                    objetivo es mejorar la claridad en este entorno.
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="global.js"></script>
+</body>
+
+</html>
