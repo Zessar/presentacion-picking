@@ -23,7 +23,6 @@ export default defineConfig({
                 slide011: resolve(__dirname, 'slide011.html'),
                 slide012: resolve(__dirname, 'slide012.html'),
                 slide013: resolve(__dirname, 'slide013.html'),
-                slide014: resolve(__dirname, 'slide014.html'),
                 slide_final: resolve(__dirname, 'slide_final.html'),
                 slide_new: resolve(__dirname, 'slide_new.html'),
                 slide_new2: resolve(__dirname, 'slide_new2.html'),
