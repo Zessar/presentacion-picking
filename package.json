@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Presentación Picking GXO",
   "scripts": {
-    "dev": "vite --open slide01.html",
+    "dev": "vite --open presentation-app/slide01.html --port 3000 --host",
     "build": "vite build"
   },
   "keywords": [],
