@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Presentación Picking GXO",
   "scripts": {
-    "dev": "vite --open slide01.html"
+    "dev": "vite --open slide01.html",
+    "build": "vite build"
   },
   "keywords": [],
   "author": "",
