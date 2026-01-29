@@ -362,6 +362,117 @@
             width: 12px;
             height: 12px;
         }
+
+        /* Overlay para etiquetas de nombres de barras */
+        .bar-labels-overlay {
+            position: absolute;
+            bottom: 100px;
+            left: 35px;
+            right: 25px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .bar-label-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cat-labels {
+            display: flex;
+            gap: 2px;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .blbl {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-size: 10px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.7);
+            width: 20px;
+            text-align: center;
+        }
+
+        .blbl-gap {
+            width: 8px;
+        }
+
+        /* COLGADO - ajustes individuales */
+        .c1-p1 {
+            margin-left: 0;
+        }
+
+        .c1-p2 {
+            margin-left: 0;
+        }
+
+        .c1-r1 {
+            margin-left: 10px;
+        }
+
+        .c1-r2 {
+            margin-left: 0;
+        }
+
+        .c1-a1 {
+            margin-left: 15px;
+            position: relative;
+            left: -2px;
+        }
+
+        .c1-a2 {
+            margin-left: 0;
+            position: relative;
+            left: -2px;
+        }
+
+        /* PAQUETERIA - mismos ajustes que COLGADO */
+        .c2-p1 {
+            margin-left: 0;
+        }
+
+        .c2-p2 {
+            margin-left: 0;
+        }
+
+        .c2-r1 {
+            margin-left: 10px;
+        }
+
+        .c2-r2 {
+            margin-left: 0;
+        }
+
+        .c2-a1 {
+            margin-left: 15px;
+            position: relative;
+            left: -2px;
+        }
+
+        .c2-a2 {
+            margin-left: 0;
+            position: relative;
+            left: -2px;
+        }
+
+        /* ZAPATO - mismos ajustes (sin AGV) */
+        .c3-p1 {
+            margin-left: -60px;
+        }
+
+        .c3-p2 {
+            margin-left: 0;
+        }
+
+        .c3-r1 {
+            margin-left: 10px;
+        }
+
+        .c3-r2 {
+            margin-left: 0;
+        }
     </style>
 </head>
 
@@ -455,13 +566,41 @@
                             <div class="bl-color bg-o2"></div><span>RBS</span>
                         </div>
                         <div class="bl-item">
-                            <div class="bl-color bg-o3"></div><span>Auto</span>
+                            <div class="bl-color bg-o3"></div><span>agv</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="chart-container">
+                <div class="chart-container" style="position: relative;">
                     <div id="barChart" class="echart-div"></div>
+                    <!-- Overlay HTML para nombres de barras -->
+                    <div class="bar-labels-overlay">
+                        <!-- Fila de etiquetas alineadas con las barras -->
+                        <div class="bar-label-row">
+                            <!-- COLGADO: 6 barras -->
+                            <div class="cat-labels">
+                                <span class="blbl c1-p1">PICK</span><span class="blbl c1-p2">PICK</span>
+                                <span class="blbl-gap"></span>
+                                <span class="blbl c1-r1">RBS</span><span class="blbl c1-r2">RBS</span>
+                                <span class="blbl-gap"></span>
+                                <span class="blbl c1-a1">AGV</span><span class="blbl c1-a2">AGV</span>
+                            </div>
+                            <!-- PAQUETERIA: 6 barras -->
+                            <div class="cat-labels">
+                                <span class="blbl c2-p1">PICK</span><span class="blbl c2-p2">PICK</span>
+                                <span class="blbl-gap"></span>
+                                <span class="blbl c2-r1">RBS</span><span class="blbl c2-r2">RBS</span>
+                                <span class="blbl-gap"></span>
+                                <span class="blbl c2-a1">AGV</span><span class="blbl c2-a2">AGV</span>
+                            </div>
+                            <!-- ZAPATO: 4 barras (sin AGV) -->
+                            <div class="cat-labels">
+                                <span class="blbl c3-p1">PICK</span><span class="blbl c3-p2">PICK</span>
+                                <span class="blbl-gap"></span>
+                                <span class="blbl c3-r1">RBS</span><span class="blbl c3-r2">RBS</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="insight-footer">
@@ -469,7 +608,7 @@
                         <i class="fas fa-robot c-icon c-orange"></i>
                         <span class="i-text"><strong>Automatización Líder:</strong> El sistema de Pick Auto (AGV)
                             consolida su eficiencia superando las <strong>120 u/h</strong> en Colgado y Paquetería, con
-                            una mejora del 10% sobre la campaña.</span>
+                            una mejora del 10% sobre BLACK FRIDAY.</span>
                     </div>
                     <div class="i-row">
                         <i class="fas fa-chart-line c-icon c-green"></i>
@@ -505,9 +644,9 @@
                         name: 'BF', type: 'pie', radius: [0, '30%'], itemStyle: { borderColor: '#18181b', borderWidth: 2 },
                         label: { position: 'inner', fontSize: 10, color: '#ccc', formatter: '{c}' },
                         data: [
-                            { value: 2000000, name: 'Colgado BF', itemStyle: { color: colorBF, opacity: 0.8 } },
-                            { value: 2000000, name: 'Paq BF', itemStyle: { color: colorBF, opacity: 0.6 } },
-                            { value: 727000, name: 'Zap BF', itemStyle: { color: colorBF, opacity: 0.4 } }
+                            { value: 2446057, name: 'Colgado BF', itemStyle: { color: colorBF, opacity: 0.8 } },
+                            { value: 1940340, name: 'Paq BF', itemStyle: { color: colorBF, opacity: 0.6 } },
+                            { value: 726794, name: 'Zap BF', itemStyle: { color: colorBF, opacity: 0.4 } }
                         ]
                     },
                     // Exterior: Enero (Solo números)
@@ -515,62 +654,47 @@
                         name: 'Enero', type: 'pie', radius: ['40%', '60%'], itemStyle: { borderColor: '#18181b', borderWidth: 2 },
                         label: { show: true, color: '#fff', fontSize: 11, fontWeight: 'bold', formatter: '{c}' },
                         data: [
-                            { value: 2000000, name: 'Colgado', itemStyle: { color: cColg } },
-                            { value: 2000000, name: 'Paqueteria', itemStyle: { color: cPaq } },
-                            { value: 650000, name: 'Zapato', itemStyle: { color: cZap } }
+                            { value: 1852507, name: 'Colgado', itemStyle: { color: cColg } },
+                            { value: 2167737, name: 'Paqueteria', itemStyle: { color: cPaq } },
+                            { value: 649842, name: 'Zapato', itemStyle: { color: cZap } }
                         ]
                     }
                 ]
             };
-            const fmt = (v) => v >= 1000000 ? (v / 1000000).toFixed(0) + 'M' : (v / 1000).toFixed(0) + 'K';
+            const fmt = (v) => v >= 1000000 ? (v / 1000000).toFixed(2) + 'M' : (v / 1000).toFixed(0) + 'K';
             donutOption.series[0].label.formatter = (p) => fmt(p.value);
             donutOption.series[1].label.formatter = (p) => fmt(p.value);
 
             // --- BARRAS VERTICALES ---
+            const lblValTop = { show: true, position: 'top', color: '#fff', fontSize: 9, fontWeight: 'bold', formatter: '{c}' };
+            const lblValTopBF = { ...lblValTop, color: '#9ca3af', fontWeight: 'normal', fontSize: 8 };
+
             const barOption = {
-                grid: { top: 30, right: 10, bottom: 20, left: 10, containLabel: true },
+                grid: { top: 30, right: 10, bottom: 45, left: 10, containLabel: true },
                 tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
                 legend: { show: false },
                 xAxis: {
-                    type: 'category', data: ['COLGADO', 'PAQUETERÍA', 'ZAPATO'],
+                    type: 'category', data: ['COLGADO', 'PAQUETERIA', 'ZAPATO'],
                     axisLine: { show: false }, axisTick: { show: false },
                     axisLabel: { color: '#9ca3af', fontWeight: 'bold', fontSize: 11, margin: 15 }
                 },
                 yAxis: { type: 'value', splitLine: { lineStyle: { color: '#333', type: 'dashed' } }, axisLabel: { show: false } },
                 series: [
                     // PICKING
-                    { name: 'Picking BF', type: 'bar', data: [51.3, 54.1, 54.1], itemStyle: { color: colorBF }, barGap: '0%' },
-                    { name: 'Picking Jan', type: 'bar', data: [48.9, 51.3, 51.2], itemStyle: { color: o1 }, barGap: '0%' },
-
+                    { name: 'PickBF', type: 'bar', data: [51.3, 54.1, 54.1], itemStyle: { color: colorBF }, label: lblValTopBF, barGap: '0%' },
+                    { name: 'PickJan', type: 'bar', data: [48.9, 51.3, 51.2], itemStyle: { color: o1 }, label: lblValTop, barGap: '0%' },
                     // ESPACIO
-                    { name: '', type: 'bar', data: [0, 0, 0], barWidth: 10, tooltip: { show: false } },
-
+                    { name: '', type: 'bar', data: [0, 0, 0], barWidth: 8, tooltip: { show: false } },
                     // RBS
-                    { name: 'RBS BF', type: 'bar', data: [69.4, 81.0, 77.7], itemStyle: { color: colorBF }, barGap: '0%' },
-                    { name: 'RBS Jan', type: 'bar', data: [80.2, 93.4, 88.8], itemStyle: { color: o2 }, barGap: '0%' },
-
+                    { name: 'RbsBF', type: 'bar', data: [69.4, 81.0, 77.7], itemStyle: { color: colorBF }, label: lblValTopBF, barGap: '0%' },
+                    { name: 'RbsJan', type: 'bar', data: [80.2, 93.4, 88.8], itemStyle: { color: o2 }, label: lblValTop, barGap: '0%' },
                     // ESPACIO
-                    { name: '', type: 'bar', data: [0, 0, 0], barWidth: 10, tooltip: { show: false } },
-
+                    { name: '', type: 'bar', data: [0, 0, 0], barWidth: 8, tooltip: { show: false } },
                     // AUTO
-                    { name: 'Auto BF', type: 'bar', data: [110.8, 112.0, 0], itemStyle: { color: colorBF }, barGap: '0%' },
-                    { name: 'Auto Jan', type: 'bar', data: [121.8, 121.8, 0], itemStyle: { color: o3 }, barGap: '0%' }
+                    { name: 'AutoBF', type: 'bar', data: [110.8, 112.0, 0], itemStyle: { color: colorBF }, label: lblValTopBF, barGap: '0%' },
+                    { name: 'AutoJan', type: 'bar', data: [121.8, 121.8, 0], itemStyle: { color: o3 }, label: lblValTop, barGap: '0%' }
                 ]
             };
-
-            // ETIQUETAS HORIZONTALES (Rotate 0)
-            const labelProps = { show: true, position: 'top', color: '#fff', fontSize: 9, formatter: '{c}', rotate: 0, fontWeight: 'bold', distance: 5 };
-            barOption.series.forEach(s => {
-                if (s.name && s.name !== '') {
-                    s.label = JSON.parse(JSON.stringify(labelProps)); // Clone
-                    if (s.name.includes('BF')) {
-                        s.label.color = '#888';
-                        s.label.fontSize = 8;
-                        s.label.fontWeight = 'normal';
-                        s.label.position = 'top'; // O 'insideTop' si preferimos
-                    }
-                }
-            });
 
             cDonut.setOption(donutOption);
             cBar.setOption(barOption);
