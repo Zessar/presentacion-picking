@@ -9,7 +9,6 @@ const SLIDES = [
     "slide09.html", "slide010.html", "slide011.html", "slide012.html",
     "slide013.html",
     "slide_new5.html", "slide_new6.html", "slide_new7.html",
-    "slide014.html",
     "slide02.html", "slide_final.html"
 ];
 
